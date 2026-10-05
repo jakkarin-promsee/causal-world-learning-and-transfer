@@ -27,7 +27,11 @@ The smoke run is one Stage-A action, but its first response column still evaluat
 
 ## Repository map
 
-- `ideas/` — Obsidian research notes with definitions, hypotheses, and experiment plans.
+- `ideas/` — research notes (some internal links use Obsidian syntax):
+  - [Stage 1: Explore the problem](ideas/stage-1-explore-the-problem.md)
+  - [Stage 2: Model and implementation](ideas/stage-2-model-and-implementation.md)
+  - [Stage 3: Phase 1 experiments](ideas/stage-3-experiment-phase-1.md)
+  - [Early ideas](ideas/my-first-ideas.md)
 - [`src/core/`](src/core/README.md) — world generation, interventions, storage, and exact inference.
 - [`src/experiments/`](src/experiments/README.md) — policies, episode runner, and exploratory studies.
 - [`src/dataset/worldgen-4-4/`](src/dataset/worldgen-4-4/manifest.json) — reference Boolean-world dataset.
