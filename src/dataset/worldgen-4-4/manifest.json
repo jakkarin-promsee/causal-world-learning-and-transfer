@@ -1,0 +1,46 @@
+{
+  "format": "beyond-backprop.structural-worlds",
+  "version": 1,
+  "spec": {
+    "d": 4,
+    "m": 4
+  },
+  "world_count": 705600,
+  "canonical_world_count": 705600,
+  "compressed": true,
+  "shard_size": 100000,
+  "shards": [
+    {
+      "file": "worlds-00000.jsonl.gz",
+      "count": 100000
+    },
+    {
+      "file": "worlds-00001.jsonl.gz",
+      "count": 100000
+    },
+    {
+      "file": "worlds-00002.jsonl.gz",
+      "count": 100000
+    },
+    {
+      "file": "worlds-00003.jsonl.gz",
+      "count": 100000
+    },
+    {
+      "file": "worlds-00004.jsonl.gz",
+      "count": 100000
+    },
+    {
+      "file": "worlds-00005.jsonl.gz",
+      "count": 100000
+    },
+    {
+      "file": "worlds-00006.jsonl.gz",
+      "count": 100000
+    },
+    {
+      "file": "worlds-00007.jsonl.gz",
+      "count": 5600
+    }
+  ]
+}
