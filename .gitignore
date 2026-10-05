@@ -1,4 +1,10 @@
 .venv/
 __pycache__/
 *.py[cod]
+
+# The results of experiment can reproduce by running the experiment
+# so we don't need to store the huge results here
 src/results/
+
+# The obsidian vault config
+.obsidian/
