@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "ideas/stage-3-experiment-phase-1.md",
+                "file": "ideas/stage-3-actual-experiment-1.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "stage-3-experiment-phase-1"
+              "title": "stage-3-actual-experiment-1"
             }
           },
           {
@@ -48,8 +48,33 @@
               "icon": "lucide-file",
               "title": "stage-2-model-and-implementation"
             }
+          },
+          {
+            "id": "5d231055bf7b5870",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "New tab"
+            }
+          },
+          {
+            "id": "69431b2b779579c2",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "ideas/stage-3-actual-experiment-1.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "stage-3-actual-experiment-1"
+            }
           }
-        ]
+        ],
+        "currentTab": 4
       }
     ],
     "direction": "vertical"
@@ -217,8 +242,11 @@
       "bases:Create new base": false
     }
   },
-  "active": "d849fcc70f1b7609",
+  "active": "69431b2b779579c2",
   "lastOpenFiles": [
+    "ideas/stage-3-actual-experiment-1.md",
+    "AGENTS.md",
+    "README.md",
     "ideas/stage-2-model-and-implementation.md",
     "ideas/stage-3-experiment-phase-1.md",
     "ideas/stage-1-explore-the-problem.md",
@@ -238,7 +266,6 @@
     "ideas/temp.md",
     "ideas/main.md",
     "Pasted image 20260918004624.png",
-    "AGENTS.md",
     "ideas/my-first-ideas.md",
     "ideas/about-myself.md",
     "ideas/tst.md"
