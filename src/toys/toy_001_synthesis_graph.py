@@ -1,8 +1,8 @@
-"""Plot episode trajectories recorded by Experiment 001.
+"""Plot episode trajectories recorded by Toy 001.
 
-Run from ``src`` after ``exp_001_stage_comparison`` has written JSONL::
+Run from ``src`` after ``toy_001_stage_comparison`` has written JSONL::
 
-    python -m experiments.exp_001_synthesis_graph results/exp001-stage-a.jsonl
+    python -m toys.toy_001_synthesis_graph results/toy001-stage-a.jsonl
 
 The figure contains one line per (stage, policy) condition.  Pale lines show
 individual worlds; the darker line and band show an across-episode mean and
@@ -22,7 +22,7 @@ from typing import Any
 
 import matplotlib
 
-matplotlib.use("Agg")  # This is an experiment artifact, not an interactive UI.
+matplotlib.use("Agg")  # This toy writes a PNG, not an interactive UI.
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.axes import Axes
@@ -51,7 +51,7 @@ def parse_args() -> argparse.Namespace:
         "inputs",
         nargs="+",
         type=Path,
-        help="one or more JSONL files written by exp_001_stage_comparison",
+        help="one or more JSONL files written by toy_001_stage_comparison",
     )
     parser.add_argument(
         "--output",
@@ -290,7 +290,7 @@ def create_figure(episodes: list[EpisodeTrajectory]) -> plt.Figure:
     gain_axis.legend(fontsize=9)
     information_axis.legend(fontsize=8, ncols=2)
     figure.suptitle(
-        "Experiment 001: intervention-stage and policy trajectories\n"
+        "Toy 001: intervention-stage and policy trajectories\n"
         "dark line = episode mean (geometric for worlds); shaded band = approximate 95% CI; "
         "pale lines = individual worlds",
         fontsize=14,

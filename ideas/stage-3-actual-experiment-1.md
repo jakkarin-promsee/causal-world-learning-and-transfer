@@ -30,37 +30,42 @@ The scientific experiment is `exp_001`. Those Python files are just its runner a
 
 ### Document flow
 
-1. [This file](ideas/stage-3-actual-experiment-1), my personal notebook that use to write an ideas or concept. Write the rough detail or skeleton. Use to map everything part together. 
+1. [This file](stage-3-actual-experiment-1.md), my personal notebook that use to write an ideas or concept. Write the rough detail or skeleton. Use to map everything part together.
 2. `src/experiment/phase-{n}/README.md`, Write the detail for phase N experiment such as what the main experiment do, what is main result that have to read, what is the decision we make, etc. Keep comprehensive, because it's the main document other research will read. (Deeper than this will be artifact for digging, not main thing that have to read).
 3. `src/experiment/phase-{n}/track-{n}/README.md`, Write detail what each track discover. Such as having more result graph, experiment detail, More reason for each decision, etc.
 4. `src/experiment/phase-{n}/track-{n}/experiment-{n}-control.md`, Full detail of each experiment setting and control, what we think it will be, what we select variable, and how can we read the result, etc.
 5. `src/experiment/phase-{n}/track-{n}/experiment-{n}-result.md`, Full detail of each experiment result, the graph read, etc. 
 
 ---
-## Phase 1: Analyze the base
+## Phase 1: Understand the base and what I can compare
 
-> I don't train the real model in this phase yet. I want to build the knowledge ground for the random policy, full-candidate greedy information gain policy, and sampled information gain policy first. Then, when the learned model is worse or behaves strangely, I have a baseline that tells me what the problem actually is.
+> I don't touch the real model in this phase yet. I want to see what the random policy, full-candidate greedy information gain policy, and sampled information gain policy actually do in each stage. More importantly, I want to know which measurements are reliable enough to compare, and where the comparison would fool me. This phase should give me a trustworthy ground to stand on before I work on the model.
 
 The base world is still fixed at `d=4, m=4`, so:
 
 $$|\Omega|=705,600.$$
 
-This phase has three connected questions:
+Before the four questions, **Track 0** measures what my own computer can actually run. This is a local computation benchmark for planning, not evidence that a stage or a policy is better. I want detailed logs so a future agent can look up the time and memory cost instead of guessing from an action count alone.
 
-1. **Track 1:** How many independent hidden worlds do I need for a result with enough statistical precision? (number of episode)
-2. **Track 2:** How much quality do I lose when I score only a sample of candidate actions instead of every available action? (number of limit-candidate)
-3. **Track 3:** When `d` or `m` changes, which part of the problem becomes harder: the world space, action space, identifiability, or computation?
+This phase has four connected questions:
+
+1. **Track 1:** What does the behavior of Stage A, B, and C look like, and which differences between them can I meaningfully compare?
+2. **Track 2:** How many independent hidden worlds do I need before those measurements have enough statistical precision? (number of episode)
+3. **Track 3:** How much quality do I lose when I score only a sample of candidate actions instead of every available action? (number of limit-candidate)
+4. **Track 4:** When `d` or `m` changes a little, do the baseline behavior and my measurement choices still make sense?
 
 The dependency is:
 
 ```text
-Track 1 pilot
-  -> freeze the episode count / precision rule
-  -> Track 2 selects a useful candidate-limit setting
-  -> Track 3 uses only the selected settings for a small scaling pilot
+Track 0: measure local runtime, RAM, response-cache cost, and GPU memory context
+  -> Track 1: look at a few episode traces to learn what I should measure
+  -> Track 2: find how many independent worlds I need to trust the comparison
+  -> return to Track 1: compare stage behavior with enough worlds
+  -> Track 3: check the quality / computation tradeoff of sampled information gain
+  -> Track 4: make a small check around d=4, m=4
 ```
 
-Track 1 does not need to discover one magical episode count for every future experiment. The required count may be different across metrics and conditions. If I want one shared count for convenience, I will select it from the hardest or most variable representative condition.
+One episode is useful for seeing what happens step by step, but it cannot tell me what a whole stage usually does. I will use the first look to shape the question, then use Track 2 before making a stage-level conclusion.
 
 ### Shared contract for all tracks
 
@@ -118,13 +123,52 @@ Every raw result should keep enough metadata to reconstruct its condition:
 
 ---
 
-## Track 1: Number of episodes and result precision
+## Track 0: My computer's computation cost
+
+### Question
+
+How long does the current baseline actually take on my machine when I change stage, candidate limit, action budget, and number of episodes? Where does the time go, and when does the response cache or RAM become the limit?
+
+### What I want to find
+
+1. Time for a new response column, one policy choice, one episode, and a small set of episodes, with cold and reused cache separated.
+2. How process RAM and response-cache memory grow across the practical workloads I may use in Tracks 1–4.
+3. What hardware, software, dataset, code version, and power state produced each measurement, so a future agent can judge whether the old timing still applies.
+4. What the GPU VRAM looks like on this computer, while being clear that the current oracle and policy implementation uses the CPU and does not benchmark GPU computation.
+
+I don't need to run every possible condition just because my computer is idle. First measure a small workload, then extend to the expensive cases that will actually help me plan. Keep raw logs and a readable summary together. A runtime extrapolation is only an estimate until I run that condition.
+
+### Key insight I found
+
+1. On my computer with `d=4,m=4`, creating one new response column usually took about **11–14 seconds** in the measured conditions. The standard benchmark finished 9 conditions in **22 minutes 32 seconds**. This is a local computation result, not a stage or policy quality result.
+2. The response cache changes runtime a lot. Stage-A full-candidate greedy took **219.24 seconds** in its first episode while building all 16 columns, then **0.068 seconds** in the next episode with those columns cached. So I should estimate future runtime from how many *new* columns a run needs, not just its stage, candidate limit, or episode count.
+3. These runs used the CPU; the GPU VRAM log is only machine context. Full-candidate Stage C was **not run**. Its roughly **4–5 hour** runtime and **872 MiB** column-cache size are extrapolations, not measurements. The short result and links to raw logs are in [Track-0 local results](../src/experiment/phase-1/track-0/LOCAL_RESULTS.md).
+
+---
+
+## Track 1: Behavior of Stage A, B, and C
+
+### Question
+
+When I give the policies a limited action budget, how does uncertainty change in each stage? Are the differences coming from what actions the stage allows, from which actions the policy chooses, or just from the worlds I happened to sample?
+
+### What I want to find
+
+1. What does the uncertainty trajectory look like for each stage, not only the final number?
+2. Is a world still ambiguous because I have not used enough actions, or because that stage cannot distinguish it even with all its available actions?
+3. Which stage comparisons look meaningful at the same budget and on the same hidden worlds? Which ones need more care before I read them as a real difference?
+
+At first I can inspect only a few episodes to understand the behavior. That is exploration, not yet evidence that one stage is generally better. I will come back to this question after Track 2 tells me how precise the comparison is.
+
+---
+
+## Track 2: Number of episodes and result precision
 
 ### Question
 
 How many independently sampled hidden worlds are required before the estimate of my primary metric has small enough uncertainty for the decision I want to make? (number of episode)
 
-This replaces the rough question “How many episodes can I trust?” because trust does not come from one universal number. It comes from defining the estimator, its uncertainty, and the error size I can accept.
+This replaces the rough question “How many episodes can I trust?” because trust does not come from one universal number. It comes from defining the estimator, its uncertainty, and the error size I can accept. This track is here to support the comparisons in the other tracks, not to find a magic episode count by itself.
 
 ### What I want to find
 
@@ -132,11 +176,13 @@ This replaces the rough question “How many episodes can I trust?” because tr
 2. How fast do the mean and confidence interval stabilize when the number of hidden worlds increases?
 3. Can one shared episode count cover all Phase-1 conditions, or do some tracks require a larger count?
 
+If I want one shared count for convenience, I will select it from the hardest or most variable representative condition.
+
 (Still working on)
 
 ---
 
-## Track 2: Candidate-limit impact on greedy information gain
+## Track 3: Candidate-limit impact on greedy information gain
 
 ### Question
 
@@ -166,43 +212,43 @@ Full Stage C may compute about 914 million world-action outcomes and keep about 
 
 ### What I want to find
 
-1. What is the smallest candidate number I can use, while still get accurate result information. (I think about 80% variant trust, cause it just use to make dry experiment, before full computation)
-2. What is the reliable candidate number I can use? Use for the main number when the experiment is biggest than I can compute. 
+1. What is a small candidate number that is useful for a rough exploration before the full computation?
+2. What is a reliable candidate number for a main comparison when scoring every action is too expensive?
 3. What is the candidate number behavior when we increase or decrease it? Use for understanding how to interpret the results.
 
 (Still working on)
 
 ---
 
-## Track 3: Impact of world size
+## Track 4: Check beyond the base world size
 
 ### Question
 
-When I change `d` or `m` one at a time, how do hypothesis-space size, action-space size, identifiability, information per action, and computation change?
+When I change `d` or `m` one at a time, do the baseline behavior and the measurement choices from the base world still make sense? Which part changes first: hypothesis-space size, action-space size, identifiability, information per action, or computation?
 
 This replaces the rough question “What world behavior changes?” because world size is not one variable. Increasing `d` and increasing `m` change different parts of the system.
 
 ### Scope of this track
 
-The main project still uses `d=4,m=4`. Track 3 is only a small scaling pilot to check whether this base case behaves like a useful middle point. It is not yet a full scaling law study.
+The main project still uses `d=4,m=4`. Track 4 is only a small check of how far I can carry the Phase-1 conclusions. It is not yet a full scaling law study.
 
-Do not combine every `(d,m)` value, every stage, and every candidate limit. That would confound the result and make the compute grid explode. Track 3 should use:
+Do not combine every `(d,m)` value, every stage, and every candidate limit. That would confound the result and make the compute grid explode. Track 4 should use:
 
 - one-factor-at-a-time changes around the base case;
 - a small feasible `(d,m)` grid;
 - full greedy only where it is computationally possible;
-- one or a few sampled settings selected from Track 2;
-- the episode-count rule from Track 1.
+- one or a few sampled settings selected from Track 3;
+- the episode-count rule from Track 2.
 
 The exact grid is **TODO after the analytic and memory feasibility table**.
 
 ### What I want to find
 
-1. if we increase d or m, can model still working like the same? Or which part that model need to extend?
-2. The variant behavior of different episode number still working as a same at d=4 and m=4 at track 1 experiment? 
-3. The candidate number behavior still be the same from track 2 experiment?
+1. If I increase `d` or `m`, do the stage and policy baselines still have a similar shape, or does the problem change in a way I should notice?
+2. Does the episode-count choice from Track 2 still give enough precision outside `d=4,m=4`?
+3. Does the candidate-number behavior from Track 3 still look similar, or do I have to check it again for a new world size?
 
-We didn't full digging all reason behind it. Just want to know can our old setting still work? Or in the future when we move environment, we have to explore these thing again?
+I don't need to fully explain every reason behind a change yet. I just want to know whether my old comparison still works, or whether I have to explore these choices again when I move to another environment.
 
 (Still working on)
 

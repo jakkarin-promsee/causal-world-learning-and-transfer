@@ -17,7 +17,7 @@ from core.oracle_state import OracleState
 
 
 class Policy(Protocol):
-    """Minimal interface consumed by :func:`experiments.runner.run_episode`."""
+    """Minimal interface consumed by :func:`reuse.runner.run_episode`."""
 
     name: str
 

@@ -6,8 +6,8 @@ from core.evaluator import Environment
 from core.oracle import ActionCatalog, ExactOracle, OnDemandResponseStore, Stage
 from core.types import WorldSpec
 from core.worldgen import iter_worlds
-from experiments.policies import GreedyInformationGainPolicy, RandomPolicy
-from experiments.runner import EpisodeConfig, entropy_bits, run_episode
+from reuse.policies import GreedyInformationGainPolicy, RandomPolicy
+from reuse.runner import EpisodeConfig, entropy_bits, run_episode
 
 
 class OrderedPolicy:

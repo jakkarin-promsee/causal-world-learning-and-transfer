@@ -112,9 +112,9 @@ Deterministic order matters: every survivor-mask index and every cached response
 
 `save_world_dataset()` streams worlds into versioned JSONL shards, optionally gzip-compressed. A record stores each rule as `[operator_integer, parent_1, ...]`. It writes `manifest.json` last; its presence represents a completed dataset.
 
-`WorldDataset` reads the manifest and is re-iterable, which makes it suitable for `OnDemandResponseStore`. Validation is enabled by default. The checked-in `src/worldgen-4-4/` dataset has eight compressed shards and 705,600 worlds.
+`WorldDataset` reads the manifest and is re-iterable, which makes it suitable for `OnDemandResponseStore`. Validation is enabled by default. The checked-in `src/dataset/worldgen-4-4/` dataset has eight compressed shards and 705,600 worlds.
 
-`src/generate_worlds.py` is the CLI entry point for materializing another dataset.
+`src/dataset/generate_worlds.py` is the CLI entry point for materializing another dataset. Run it from `src/` with `python -m dataset.generate_worlds OUTPUT`.
 
 ### `core/evaluator.py`: execution semantics
 
@@ -165,7 +165,7 @@ The oracle owns fixed assets (`catalog`, `responses`, `stage`) but no current ep
 
 The inference is exact only for the current assumptions: finite enumerated worlds, uniform prior, and deterministic observations.
 
-### `experiments/policies.py`: action selection
+### `reuse/policies.py`: action selection
 
 The `Policy` protocol is deliberately small:
 
@@ -179,7 +179,7 @@ choose_action(*, state: OracleState, available_action_ids: Sequence[int]) -> int
 
 When `candidate_limit=None`, greedy search scores every available action and is exact. A finite limit first samples candidate actions without replacement; its name becomes `sampled_information_gain_N`, and results must be described as sampled/approximate rather than exact greedy information gain.
 
-### `experiments/runner.py`: one episode
+### `reuse/runner.py`: one episode
 
 `run_episode()` coordinates the objects without leaking the hidden world:
 
@@ -197,6 +197,8 @@ initial OracleState
 
 The runner rejects repeated/unavailable policy actions, a budget larger than the stage's distinct action set, mismatched environment/oracle specs, and mismatched config/oracle stages. `world_index` is result metadata; it is never passed to the policy.
 
+`toys/` contains exploratory scripts that use the reusable runner and policies. `experiment/phase-1/track-*/` is reserved for the planned Phase-1 studies and their records. Neither directory changes the `core` inference contracts.
+
 ## 5. Practical extension guide
 
 - **Add a policy:** implement `name` and `choose_action()`. Keep all evidence in `OracleState`; do not add access to `Environment`.
@@ -212,7 +214,7 @@ The runner rejects repeated/unavailable policy actions, a budget larger than the
 - `tests/test_oracle.py`: action-ID prefixes, encoding, monotone immutable updates, replay, predictive distributions, stage checks, and lazy caching.
 - `tests/test_experiment_runner.py`: runner invariants, metrics, reproducible random choice, and greedy policy behavior.
 
-Run commands from `src/` because imports use `core` and `experiments` as top-level packages:
+Run commands from `src/` because imports use `core`, `reuse`, `toys`, and `dataset` as top-level packages:
 
 ```powershell
 python -m unittest discover -s tests -v

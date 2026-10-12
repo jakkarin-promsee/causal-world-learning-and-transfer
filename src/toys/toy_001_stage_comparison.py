@@ -1,14 +1,14 @@
-"""Experiment 001: compare intervention stages and action policies.
+"""Toy 001: explore intervention stages and action policies.
 
 Safe smoke run from ``src``::
 
-    python -m experiments.exp_001_stage_comparison
+    python -m toys.toy_001_stage_comparison
 
 An early Stage-A comparison with both policies::
 
-    python -m experiments.exp_001_stage_comparison \
+    python -m toys.toy_001_stage_comparison \
         --stages A --policies random information-gain \
-        --episodes 10 --budget 8 --output results/exp001-stage-a.jsonl
+        --episodes 10 --budget 8 --output results/toy001-stage-a.jsonl
 
 Stage B/C exact information-gain search can be expensive.  Start with
 ``--candidate-limit 32`` and report it as sampled information gain, not exact
@@ -29,13 +29,13 @@ from core.evaluator import Environment
 from core.oracle import ActionCatalog, ExactOracle, OnDemandResponseStore, Stage
 from core.storage import WorldDataset
 from core.types import World
-from experiments.policies import GreedyInformationGainPolicy, RandomPolicy
-from experiments.runner import EpisodeConfig, EpisodeResult, run_episode
+from reuse.policies import GreedyInformationGainPolicy, RandomPolicy
+from reuse.runner import EpisodeConfig, EpisodeResult, run_episode
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
-    default_dataset = Path(__file__).resolve().parents[1] / "datasets" / "worldgen-4-4"
+    default_dataset = Path(__file__).resolve().parents[1] / "dataset" / "worldgen-4-4"
     parser.add_argument("--dataset", type=Path, default=default_dataset)
     parser.add_argument("--stages", nargs="+", choices=("A", "B", "C"), default=["A"])
     parser.add_argument(

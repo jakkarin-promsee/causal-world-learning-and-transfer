@@ -1,0 +1,76 @@
+{
+  "started_utc": "2026-10-05T20:08:38+00:00",
+  "profile": "smoke",
+  "seed": 42,
+  "max_minutes": 20.0,
+  "dataset_relative": "dataset\\worldgen-4-4",
+  "dataset_manifest_sha256": "5d29eb9e91b6075715341335a9b873cb16658ba12da2e9713c7ab143085a2b3b",
+  "d": 4,
+  "m": 4,
+  "world_count": 705600,
+  "git_commit": "edba0258510fe7c04da3e2f55da294f14d41f88d",
+  "git_dirty": true,
+  "code_sha256": {
+    "core\\oracle.py": "cdcf59b2ffb453ac51a2e2b4ea2db989a0714e499b63c639be5ad2cf368cdfe3",
+    "reuse\\policies.py": "d29e9b49e9dde58a705b2548cce79b8aacdf4831230da2dbb98d8e4a0127b9d5",
+    "reuse\\runner.py": "00ce09c31a73948c61be2fee19cdc6202a4b36abc8cdf257db9e724b04bfd04a",
+    "experiment\\phase-1\\track-0\\benchmark_local.py": "0c5fd6d323f39aebc21340b961b590197d9b4c769ec07c70b7406008727d545b"
+  },
+  "hardware": {
+    "os": "Windows-10-10.0.26200-SP0",
+    "python": "3.11.0",
+    "numpy": "2.3.5",
+    "psutil": "7.2.2",
+    "cpu_name": "11th Gen Intel(R) Core(TM) i7-11800H @ 2.30GHz",
+    "physical_cores": 8,
+    "logical_cores": 16,
+    "ram_total_bytes": 25390030848,
+    "ram_available_start_bytes": 12519841792,
+    "disk_free_start_bytes": 119869161472,
+    "battery_percent": 100,
+    "power_plugged": true,
+    "gpu": {
+      "available": true,
+      "devices": [
+        {
+          "name": "NVIDIA GeForce RTX 3050 Ti Laptop GPU",
+          "total_mib": 4096,
+          "system_used_mib": 0,
+          "driver": "592.82"
+        }
+      ],
+      "usage_scope": "whole GPU; this benchmark does not allocate GPU tensors"
+    },
+    "execution_device": "CPU; NumPy and Python dataset streaming"
+  },
+  "conditions": [
+    {
+      "stage": "A",
+      "policy": "random",
+      "candidate_limit": null,
+      "budget": 1,
+      "episodes": 1
+    },
+    {
+      "stage": "B",
+      "policy": "random",
+      "candidate_limit": null,
+      "budget": 1,
+      "episodes": 1
+    },
+    {
+      "stage": "C",
+      "policy": "random",
+      "candidate_limit": null,
+      "budget": 1,
+      "episodes": 1
+    },
+    {
+      "stage": "C",
+      "policy": "sampled_information_gain",
+      "candidate_limit": 2,
+      "budget": 1,
+      "episodes": 1
+    }
+  ]
+}

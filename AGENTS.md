@@ -23,6 +23,8 @@ use Obsidian syntax. Enter through `ideas/main.md`.
   definitions, architecture, and model.
 - `ideas/stage-2-model-and-implementation.md` — **high priority** concrete model
   definitions and the current working stage.
+- `ideas/stage-3-actual-experiment-1.md` — **high priority** rough ideas about
+  phase 1 experiment what I want to do
 
 Treat claims in the scratch book as hypotheses unless the notes or experiments
 support them. Keep a clear distinction between definitions, assumptions,
@@ -48,7 +50,7 @@ observations, and conclusions.
 - Distinguish exact greedy information gain from sampled information gain in
   code, filenames, tables, and written conclusions.
 
-The checked-in `src/worldgen-4-4/` dataset represents `d=4`, `m=4` and contains
+The checked-in `src/dataset/worldgen-4-4/` dataset represents `d=4`, `m=4` and contains
 705,600 canonical worlds. Response columns are intentionally evaluated lazily
 and cached per action; Stage B/C can therefore be computationally expensive.
 
@@ -59,12 +61,16 @@ and cached per action; Stage B/C can therefore be computationally expensive.
 - Use reproducible seeds and make the unit of analysis explicit.
 - A finite `candidate_limit` makes `GreedyInformationGainPolicy` approximate;
   report it as sampled information gain.
-- `src/experiments/exp_001_stage_comparison.py` and
-  `src/experiments/exp_001_synthesis_graph.py` are exploratory scripts, not
+- `src/toys/toy_001_stage_comparison.py` and
+  `src/toys/toy_001_synthesis_graph.py` are exploratory scripts, not
   canonical architecture. Inspect or modify them only when a task specifically
   concerns those scripts.
 
-Run Python commands from `src/`, where `core` and `experiments` resolve as
+Reusable episode policies and the runner live in `src/reuse/`, outside the world and oracle implementation in `src/core/`. Planned Phase-1 studies live under `src/experiment/phase-1/track-*/`; toys are not numbered research experiments. The dataset CLI is `python -m dataset.generate_worlds` from `src/`.
+
+For concise findings from every phase and track, plus paths to the detailed results and raw evidence, read `src/AGENTS.md`. Keep result-specific updates there instead of expanding this root instruction file.
+
+Run Python commands from `src/`, where `core`, `reuse`, `toys`, and `dataset` resolve as
 top-level packages. The main regression suite is:
 
 ```powershell
@@ -77,5 +83,5 @@ The researcher is a third-year student whose goals are both research insight and
 practice with a realistic ML-research workflow. Explain decisions at a junior
 level, including the reason behind an abstraction, metric, or experimental
 control. Offer opinions about sound research process, but do not rush ahead or
-take over all implementation: the researcher also wants to write code and build
+take over all implementation: the researcher also wants to understand all code and build
 the skill personally.

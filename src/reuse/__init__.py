@@ -1,11 +1,11 @@
-"""Experiment runners and policies built on top of :mod:`core`."""
+"""Reusable episode runner and policies built on top of :mod:`core`."""
 
-from experiments.policies import (
+from reuse.policies import (
     GreedyInformationGainPolicy,
     Policy,
     RandomPolicy,
 )
-from experiments.runner import (
+from reuse.runner import (
     EpisodeConfig,
     EpisodeResult,
     StepRecord,

@@ -11,7 +11,7 @@ from numpy.typing import ArrayLike
 from core.evaluator import Environment, encode_observation
 from core.oracle import ExactOracle, Stage
 from core.oracle_state import Experiment
-from experiments.policies import Policy
+from reuse.policies import Policy
 
 
 def entropy_bits(probabilities: ArrayLike) -> float:
