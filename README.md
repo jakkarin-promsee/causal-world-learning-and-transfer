@@ -35,3 +35,7 @@ The smoke run is one Stage-A action, but its first response column still evaluat
 - [`src/core/`](src/core/README.md) — world generation, interventions, storage, and exact inference.
 - [`src/experiments/`](src/experiments/README.md) — policies, episode runner, and exploratory studies.
 - [`src/dataset/worldgen-4-4/`](src/dataset/worldgen-4-4/manifest.json) — reference Boolean-world dataset.
+
+## License
+
+Original code and documentation authored by Jakkarin Promsee are licensed under the [MIT License](LICENSE). Third-party code, assets, datasets, and other materials are not covered by this license; their original terms apply.
