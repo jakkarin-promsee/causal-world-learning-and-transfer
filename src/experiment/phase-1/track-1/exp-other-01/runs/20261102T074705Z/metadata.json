@@ -1,0 +1,39 @@
+{
+  "started_utc": "2026-11-02T07:47:05+00:00",
+  "dataset_path": "C:\\Users\\BTCOM\\Desktop\\beyond-backprop-learning\\src\\dataset\\worldgen-4-4",
+  "dataset_spec": {
+    "d": 4,
+    "m": 4
+  },
+  "world_count": 705600,
+  "dataset_file_sha256": {
+    "manifest.json": "5d29eb9e91b6075715341335a9b873cb16658ba12da2e9713c7ab143085a2b3b",
+    "worlds-00000.jsonl.gz": "7d6aa2acf4410ea1df19f456c8a95ad426e5adc064ab3b79f626b5dd51d7fe95",
+    "worlds-00001.jsonl.gz": "bb9f0a3ef918179629f0b5421b9a0f88ab50ea1824a26b332f39cfa06a948abe",
+    "worlds-00002.jsonl.gz": "6f39152683928f66c39d61d376715123c9aa275932497971ad4a4f2d2026590b",
+    "worlds-00003.jsonl.gz": "ee408fc245019c007b7e4727383bf9c3cefeecea2ac40544c6c38880b20db0af",
+    "worlds-00004.jsonl.gz": "3b8807297dd6d44bb7cee82ee2f648274587aeb287ec655f8ad0f8008f3d001f",
+    "worlds-00005.jsonl.gz": "e22810c2cd2d9cffa215c536f5673baf600b18ef38dfe8ed997d76f146642346",
+    "worlds-00006.jsonl.gz": "75ef97b2a3ca56cfd9126a7953ee48dfcab673e4e0f222251d668300b97dbe93",
+    "worlds-00007.jsonl.gz": "e754a41a58b9ab58d70ac56ffcc7eb6786e73e2f2ed415dc54c942f812aaa0ad"
+  },
+  "code_file_sha256": {
+    "experiment\\phase-1\\track-1\\exp-other-01\\benchmark_response_column.py": "c84195e440a628ad77e566058526ea459a9613b92f2ccbb3fe9c0ed03f5c1083",
+    "core\\storage.py": "95d1a84edf3f9a605ea13c95deb6d421b645efff7eba584a5c5e817ed7e2d5bb",
+    "core\\evaluator.py": "f5fb1e8b80bde217e16f7b944e7d5fc58c0d46769d862eeb1156d26d25e06dfa",
+    "core\\oracle.py": "cdcf59b2ffb453ac51a2e2b4ea2db989a0714e499b63c639be5ad2cf368cdfe3",
+    "core\\operators.py": "b4d12ff2bb63b114d3b6907ef454acab7be50caaafd1bb515a6f7705f8bb32b7"
+  },
+  "git_revision": "4b25578b0b881d77fd32e7e9ec292994f3a693f7",
+  "python": "3.11.0",
+  "numpy": "2.3.5",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "chunk_size": 4096,
+  "compute_device": "CPU",
+  "episode_count": 0,
+  "policy": null,
+  "candidate_limit": null,
+  "seed": null,
+  "action_budget": 0,
+  "timing_method": "perf_counter around batched dataset retrieval and evaluate/encode/store; process_time for whole pass"
+}

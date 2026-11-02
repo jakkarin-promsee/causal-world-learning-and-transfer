@@ -1,0 +1,118 @@
+{
+  "reference_stage_a": {
+    "action_id": 0,
+    "total_wall_seconds": 16.283209800021723,
+    "column_sha256": "2203dcfce60cf4d82fa7d4c8e448d92d8077778bdddabf224ab8c238134cbde9"
+  },
+  "conditions": [
+    {
+      "action_id": 0,
+      "intervention": {
+        "x": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "y": [
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "worlds": 705600,
+      "read_decode_validate_seconds": 12.225596499891253,
+      "evaluate_encode_store_seconds": 7.0804005000100005,
+      "other_seconds": 0.0013084000966046005,
+      "total_wall_seconds": 19.30730539999786,
+      "total_process_cpu_seconds": 18.90625,
+      "column_bytes": 705600,
+      "column_sha256": "2203dcfce60cf4d82fa7d4c8e448d92d8077778bdddabf224ab8c238134cbde9",
+      "condition": "A_no_y_forced",
+      "stage": "A",
+      "matches_reference_store": true
+    },
+    {
+      "action_id": 17,
+      "intervention": {
+        "x": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "y": [
+          1,
+          null,
+          null,
+          null
+        ]
+      },
+      "worlds": 705600,
+      "read_decode_validate_seconds": 10.876429699623259,
+      "evaluate_encode_store_seconds": 5.570368300075643,
+      "other_seconds": 0.0010337003041058779,
+      "total_wall_seconds": 16.447831700003007,
+      "total_process_cpu_seconds": 16.28125,
+      "column_bytes": 705600,
+      "column_sha256": "eb02a1e882e694dc4b77979b8b9127638ee4d9ecb7ec2fc44a80aabfb81d0ae6",
+      "condition": "B_one_y_forced",
+      "stage": "B"
+    },
+    {
+      "action_id": 198,
+      "intervention": {
+        "x": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "y": [
+          1,
+          0,
+          null,
+          null
+        ]
+      },
+      "worlds": 705600,
+      "read_decode_validate_seconds": 10.912295200076187,
+      "evaluate_encode_store_seconds": 4.450963100156514,
+      "other_seconds": 0.0010595997737254947,
+      "total_wall_seconds": 15.364317900006426,
+      "total_process_cpu_seconds": 15.296875,
+      "column_bytes": 705600,
+      "column_sha256": "b2b6525f759a1d2f9d731856592f112285d762b1803c7aa5d24e41035c61918e",
+      "condition": "C_two_y_forced",
+      "stage": "C"
+    },
+    {
+      "action_id": 215,
+      "intervention": {
+        "x": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "y": [
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "worlds": 705600,
+      "read_decode_validate_seconds": 10.78488830011338,
+      "evaluate_encode_store_seconds": 2.346319799689809,
+      "other_seconds": 0.0013314001844264567,
+      "total_wall_seconds": 13.132539499987615,
+      "total_process_cpu_seconds": 13.046875,
+      "column_bytes": 705600,
+      "column_sha256": "c7a813d798aa0935e6f0080f10c53fc2eb18145a2eeb6aa756cf9bbaa2075dd7",
+      "condition": "C_all_y_forced",
+      "stage": "C"
+    }
+  ]
+}
