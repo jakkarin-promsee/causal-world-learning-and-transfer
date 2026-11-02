@@ -5,6 +5,8 @@ __pycache__/
 # The results of experiment can reproduce by running the experiment
 # so we don't need to store the huge results here
 src/results/
+src/dataset/worldgen-*-npy/
+src/dataset/response-cache-*/
 
 # The obsidian vault config
 .obsidian/
