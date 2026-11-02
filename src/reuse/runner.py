@@ -11,7 +11,7 @@ from numpy.typing import ArrayLike
 from core.evaluator import Environment, encode_observation
 from core.oracle import ExactOracle, Stage
 from core.oracle_state import Experiment
-from reuse.policies import Policy
+from reuse.policies import GreedyInformationGainPolicy, Policy
 
 
 def entropy_bits(probabilities: ArrayLike) -> float:
@@ -71,6 +71,34 @@ class EpisodeResult:
         return self.steps[-1].survivor_count_after
 
 
+@dataclass(frozen=True)
+class FullCandidateGreedyEpisodeResult:
+    """Executed steps plus the certified full-budget uncertainty trajectory."""
+
+    episode: EpisodeResult
+    termination_reason: str  # "singleton", "equivalent", or "budget_exhausted"
+    initial_world_count: int
+
+    @property
+    def final_survivor_count(self) -> int:
+        """Include the valid case where the run stops before any action."""
+
+        if not self.episode.steps:
+            return self.initial_world_count
+        return self.episode.steps[-1].survivor_count_after
+
+    @property
+    def uncertainty_trajectory_bits(self) -> tuple[float, ...]:
+        """U_0 through U_budget; suffix values are inferred, not executed steps."""
+
+        observed = (math.log2(self.initial_world_count),) + tuple(
+            step.remaining_uncertainty_bits for step in self.episode.steps
+        )
+        return observed + (observed[-1],) * (
+            self.episode.config.budget + 1 - len(observed)
+        )
+
+
 def run_episode(
     *,
     world_index: int,
@@ -80,6 +108,64 @@ def run_episode(
     config: EpisodeConfig,
 ) -> EpisodeResult:
     """Run one active-inference episode without exposing its world to policy."""
+
+    result, _ = _run_episode(
+        world_index=world_index,
+        environment=environment,
+        oracle=oracle,
+        policy=policy,
+        config=config,
+        stop_when_uninformative=False,
+    )
+    return result
+
+
+def run_full_candidate_greedy_episode(
+    *,
+    world_index: int,
+    environment: Environment,
+    oracle: ExactOracle,
+    config: EpisodeConfig,
+) -> FullCandidateGreedyEpisodeResult:
+    """Run full-candidate greedy until exact identification or a proven plateau.
+
+    This specialized runner requires the stage's full action budget. It never
+    emits invented StepRecords for unexecuted actions; the separate trajectory
+    property fills the certified constant suffix for plotting.
+    """
+
+    action_count = len(oracle.catalog.entries_for_stage(config.stage))
+    if config.budget != action_count:
+        raise ValueError(
+            f"full-candidate greedy optimization requires the full stage "
+            f"budget {action_count}, got {config.budget}"
+        )
+    policy = GreedyInformationGainPolicy(oracle)
+    episode, reason = _run_episode(
+        world_index=world_index,
+        environment=environment,
+        oracle=oracle,
+        policy=policy,
+        config=config,
+        stop_when_uninformative=True,
+    )
+    return FullCandidateGreedyEpisodeResult(
+        episode=episode,
+        termination_reason=reason,
+        initial_world_count=oracle.world_count,
+    )
+
+
+def _run_episode(
+    *,
+    world_index: int,
+    environment: Environment,
+    oracle: ExactOracle,
+    policy: Policy,
+    config: EpisodeConfig,
+    stop_when_uninformative: bool,
+) -> tuple[EpisodeResult, str]:
+    """Shared episode mechanics; only the specialized caller may stop early."""
 
     if world_index < 0:
         raise ValueError("world_index must be non-negative")
@@ -101,8 +187,12 @@ def run_episode(
     state = oracle.initial_state()
     used_action_ids: set[int] = set()
     records: list[StepRecord] = []
+    termination_reason = "budget_exhausted"
 
     for timestep in range(config.budget):
+        if stop_when_uninformative and state.survivor_count == 1:
+            termination_reason = "singleton"
+            break
         available_action_ids = tuple(
             action_id
             for action_id in permitted_action_ids
@@ -118,6 +208,11 @@ def run_episode(
             )
 
         distribution = oracle.predict(state, action_id)
+        if stop_when_uninformative and np.count_nonzero(distribution.counts) == 1:
+            # Full-candidate greedy just scored every available action. Its
+            # winner has one outcome, so no remaining action can split C_t.
+            termination_reason = "equivalent"
+            break
         predictive_entropy = entropy_bits(distribution.probabilities)
         survivor_count_before = state.survivor_count
 
@@ -156,9 +251,12 @@ def run_episode(
             )
         )
 
+    if stop_when_uninformative and state.survivor_count == 1:
+        termination_reason = "singleton"
+
     return EpisodeResult(
         world_index=world_index,
         policy_name=policy.name,
         config=config,
         steps=tuple(records),
-    )
+    ), termination_reason

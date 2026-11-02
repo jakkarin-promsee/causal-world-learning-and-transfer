@@ -4,10 +4,15 @@ import numpy as np
 
 from core.evaluator import Environment
 from core.oracle import ActionCatalog, ExactOracle, OnDemandResponseStore, Stage
-from core.types import WorldSpec
+from core.types import NodeRule, Op, World, WorldSpec
 from core.worldgen import iter_worlds
 from reuse.policies import GreedyInformationGainPolicy, RandomPolicy
-from reuse.runner import EpisodeConfig, entropy_bits, run_episode
+from reuse.runner import (
+    EpisodeConfig,
+    entropy_bits,
+    run_episode,
+    run_full_candidate_greedy_episode,
+)
 
 
 class OrderedPolicy:
@@ -134,6 +139,112 @@ class ExperimentRunnerTests(unittest.TestCase):
 
         self.assertIn(action_id, available)
         self.assertEqual(policy.name, "sampled_information_gain_2")
+
+
+class FullCandidateGreedyOptimizationTests(unittest.TestCase):
+    def setUp(self) -> None:
+        self.spec = WorldSpec(d=2, m=2)
+        shared_y0 = NodeRule(Op.AND, (0, 1))
+        self.first = World((shared_y0, NodeRule(Op.AND, (0, 2))))
+        self.equivalent_in_a = World((shared_y0, NodeRule(Op.AND, (0, 1))))
+        self.distinct_in_a = World((
+            NodeRule(Op.OR, (0, 1)), NodeRule(Op.AND, (0, 2))
+        ))
+        self.catalog = ActionCatalog(self.spec)
+
+    def oracle_for(self, worlds, stage):
+        responses = OnDemandResponseStore(worlds, len(worlds), self.catalog)
+        return ExactOracle(self.catalog, responses, stage=stage)
+
+    def run_pair(self, worlds, stage):
+        oracle = self.oracle_for(worlds, stage)
+        config = EpisodeConfig(
+            stage=stage,
+            budget=len(self.catalog.entries_for_stage(stage)),
+            seed=7,
+        )
+        environment = Environment(worlds[0], self.spec)
+        original = run_episode(
+            world_index=0,
+            environment=environment,
+            oracle=oracle,
+            policy=GreedyInformationGainPolicy(oracle),
+            config=config,
+        )
+        optimized = run_full_candidate_greedy_episode(
+            world_index=0,
+            environment=environment,
+            oracle=oracle,
+            config=config,
+        )
+        return original, optimized
+
+    def test_equivalent_worlds_stop_without_claiming_singleton(self) -> None:
+        original, optimized = self.run_pair(
+            [self.first, self.equivalent_in_a], Stage.A
+        )
+
+        self.assertEqual(optimized.termination_reason, "equivalent")
+        self.assertEqual(optimized.episode.steps, ())
+        self.assertEqual(optimized.final_survivor_count, 2)
+        self.assertEqual(optimized.uncertainty_trajectory_bits, (1.0,) * 5)
+        self.assertEqual(original.final_survivor_count, 2)
+        self.assertTrue(all(step.realized_information_gain_bits == 0 for step in original.steps))
+
+    def test_singleton_at_initial_state_needs_no_action(self) -> None:
+        original, optimized = self.run_pair([self.first], Stage.A)
+
+        self.assertEqual(optimized.termination_reason, "singleton")
+        self.assertEqual(optimized.episode.steps, ())
+        self.assertEqual(optimized.final_survivor_count, 1)
+        self.assertEqual(optimized.uncertainty_trajectory_bits, (0.0,) * 5)
+        self.assertEqual(original.final_survivor_count, 1)
+
+    def test_equivalent_plateau_after_an_informative_action(self) -> None:
+        original, optimized = self.run_pair(
+            [self.first, self.equivalent_in_a, self.distinct_in_a], Stage.A
+        )
+
+        self.assertEqual(optimized.termination_reason, "equivalent")
+        self.assertEqual(len(optimized.episode.steps), 1)
+        self.assertEqual(optimized.episode.steps, original.steps[:1])
+        self.assertEqual(optimized.final_survivor_count, 2)
+        self.assertEqual(
+            optimized.uncertainty_trajectory_bits,
+            (np.log2(3),) + (1.0,) * 4,
+        )
+        self.assertEqual(
+            optimized.uncertainty_trajectory_bits,
+            (np.log2(3),) + tuple(
+                step.remaining_uncertainty_bits for step in original.steps
+            ),
+        )
+
+    def test_later_stages_distinguish_worlds_equivalent_in_stage_a(self) -> None:
+        for stage in (Stage.B, Stage.C):
+            with self.subTest(stage=stage):
+                original, optimized = self.run_pair(
+                    [self.first, self.equivalent_in_a], stage
+                )
+
+                self.assertEqual(optimized.termination_reason, "singleton")
+                self.assertEqual(len(optimized.episode.steps), 1)
+                self.assertEqual(optimized.episode.steps, original.steps[:1])
+                self.assertEqual(optimized.final_survivor_count, 1)
+                self.assertEqual(
+                    optimized.uncertainty_trajectory_bits,
+                    (1.0,) + (0.0,) * original.config.budget,
+                )
+
+    def test_optimized_runner_requires_full_stage_budget(self) -> None:
+        worlds = [self.first, self.equivalent_in_a]
+        with self.assertRaisesRegex(ValueError, "full stage budget"):
+            run_full_candidate_greedy_episode(
+                world_index=0,
+                environment=Environment(worlds[0], self.spec),
+                oracle=self.oracle_for(worlds, Stage.A),
+                config=EpisodeConfig(stage=Stage.A, budget=1, seed=7),
+            )
 
 
 if __name__ == "__main__":
