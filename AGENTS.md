@@ -50,9 +50,7 @@ observations, and conclusions.
 - Distinguish exact greedy information gain from sampled information gain in
   code, filenames, tables, and written conclusions.
 
-The checked-in `src/dataset/worldgen-4-4/` dataset represents `d=4`, `m=4` and contains
-705,600 canonical worlds. Response columns are intentionally evaluated lazily
-and cached per action; Stage B/C can therefore be computationally expensive.
+The primary `d=4,m=4` world dataset is generated locally at `src/dataset/worldgen-4-4-npy/` as numeric `.npy` rules for 705,600 canonical worlds; it is ignored by Git. Regenerate it from `src/` with `python -m reuse.numeric_engine.generate_worlds dataset/worldgen-4-4-npy`, using a new or empty output directory. The checked-in `src/dataset/worldgen-4-4/` JSONL dataset remains for `reuse/jsonl_reference/`. The main `reuse/numeric_engine/` path computes response columns lazily from numeric rules and can persist each requested column as `.npy`; response caches are also ignored by Git.
 
 ## Experiment work
 
@@ -66,7 +64,7 @@ and cached per action; Stage B/C can therefore be computationally expensive.
   canonical architecture. Inspect or modify them only when a task specifically
   concerns those scripts.
 
-Reusable episode policies and the runner live in `src/reuse/`, outside the world and oracle implementation in `src/core/`. Planned Phase-1 studies live under `src/experiment/phase-1/track-*/`; toys are not numbered research experiments. The dataset CLI is `python -m dataset.generate_worlds` from `src/`.
+Reusable episode policies and the runner live in `src/reuse/`, outside the world and oracle implementation in `src/core/`. Develop the primary path in `src/reuse/numeric_engine/`; `src/reuse/jsonl_reference/` is a stable JSONL-backed reference and is updated only when a deliberate comparison requires it. Top-level `reuse.runner` and `reuse.policies` re-export the numeric engine. Planned Phase-1 studies live under `src/experiment/phase-1/track-*/`; toys are not numbered research experiments. See `src/README.md` for the reproducible numeric-dataset setup and the older JSONL CLI.
 
 For concise findings from every phase and track, plus paths to the detailed results and raw evidence, read `src/AGENTS.md`. Keep result-specific updates there instead of expanding this root instruction file.
 

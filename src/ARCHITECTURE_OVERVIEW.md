@@ -4,13 +4,13 @@ This document is the fast index to the current codebase. Read it before changing
 
 > Enumerate a finite set of deterministic Boolean causal worlds, interact with one hidden world through interventions, and use exact Bayesian elimination to keep only the worlds consistent with the observations.
 
-The current reference dataset uses `d=4` exogenous variables, `m=4` endogenous variables, and contains 705,600 possible worlds.
+The primary numeric dataset uses `d=4` exogenous variables, `m=4` endogenous variables, and contains 705,600 possible worlds. Its `.npy` file is generated locally and ignored by Git; the checked-in JSONL dataset remains for the reference path.
 
 ## 1. System at a glance
 
 ```text
                           setup, shared across episodes
-WorldSpec -> WorldDataset -> ActionCatalog -> OnDemandResponseStore -> ExactOracle
+WorldSpec -> NumericWorldDataset -> ActionCatalog -> NumericResponseStore -> ExactOracle
                  |                                                    |
                  | choose one hidden World                            | predict/update
                  v                                                    v
@@ -19,6 +19,8 @@ WorldSpec -> WorldDataset -> ActionCatalog -> OnDemandResponseStore -> ExactOrac
                                                             v
                                                           Policy
 ```
+
+The original reference replaces `NumericWorldDataset`/`NumericResponseStore` with `WorldDataset`/`OnDemandResponseStore` while using the same oracle contracts.
 
 There are three important ownership boundaries:
 
@@ -108,13 +110,21 @@ The name is **worldgen**, not word generation.
 
 Deterministic order matters: every survivor-mask index and every cached response column assumes that repeated iteration yields the same worlds in the same order.
 
-### `core/storage.py`: reusable world datasets
+### `core/storage.py`: JSONL reference dataset
 
 `save_world_dataset()` streams worlds into versioned JSONL shards, optionally gzip-compressed. A record stores each rule as `[operator_integer, parent_1, ...]`. It writes `manifest.json` last; its presence represents a completed dataset.
 
-`WorldDataset` reads the manifest and is re-iterable, which makes it suitable for `OnDemandResponseStore`. Validation is enabled by default. The checked-in `src/dataset/worldgen-4-4/` dataset has eight compressed shards and 705,600 worlds.
+`WorldDataset` reads the manifest and is re-iterable, which makes it suitable for `OnDemandResponseStore`. Validation is enabled by default. The checked-in `src/dataset/worldgen-4-4/` dataset has eight compressed shards and 705,600 worlds. This is the original reference path.
 
 `src/dataset/generate_worlds.py` is the CLI entry point for materializing another dataset. Run it from `src/` with `python -m dataset.generate_worlds OUTPUT`.
+
+### `reuse/numeric_engine/`: primary numeric path
+
+`worlds.py` writes canonical rules from `iter_worlds()` as a `(world_count, m, 3)` `uint8` array: operator, first parent, second parent (255 for unary `NOT`). `manifest.json` records the spec, shape, world order, and SHA-256 of `worlds.npy`; it is written after the array. `NumericWorldDataset` validates the manifest and hash, loads the rules once, and materializes only a chosen hidden world for `Environment`. Generate the primary `d=4,m=4` dataset locally in `src/dataset/worldgen-4-4-npy/` with `python -m reuse.numeric_engine.generate_worlds dataset/worldgen-4-4-npy` from `src/`. The output directory must be new or empty; neither it nor the derived response cache is tracked by Git.
+
+`NumericResponseStore` implements the same `ResponseStore` boundary as `OnDemandResponseStore`. It evaluates each requested action in vectorized world batches, preserving exact dataset order and encoded observations. It can persist individual response columns as `.npy` files with per-column SHA-256 checksums in a caller-selected cache directory; no action is precomputed merely because it exists in the catalog. The cache manifest binds the columns to the numeric world hash, action catalog, dtype, and evaluator code. A changed source or column is rejected rather than silently reused. Cache files are derived data and are not the source of truth.
+
+`reuse/numeric_engine/policies.py` and `runner.py` are the active development copies. `reuse/jsonl_reference/` preserves the JSONL-era policy and runner as a comparison reference. Top-level `reuse.policies` and `reuse.runner` re-export the active copies for existing imports. Both paths use the same `core` oracle and state contracts; the response-store implementation supplied to `ExactOracle` decides whether worlds come from numeric rules or the older JSONL stream.
 
 ### `core/evaluator.py`: execution semantics
 
@@ -142,7 +152,7 @@ The catalog assigns stable contiguous IDs and groups actions by the earliest sta
 
 Stage-A entries are a prefix of Stage B, and Stage-B entries are a prefix of Stage C. Existing action IDs therefore do not change when a stage expands. Use `action_id_for()`, `entries_for_stage()`, and `validate_for_stage()` rather than rebuilding this mapping elsewhere.
 
-#### `OnDemandResponseStore`
+#### `OnDemandResponseStore` (JSONL reference)
 
 For a requested action, it evaluates that action against every world and creates one response column:
 
@@ -165,7 +175,7 @@ The oracle owns fixed assets (`catalog`, `responses`, `stage`) but no current ep
 
 The inference is exact only for the current assumptions: finite enumerated worlds, uniform prior, and deterministic observations.
 
-### `reuse/policies.py`: action selection
+### `reuse/numeric_engine/policies.py`: action selection
 
 The `Policy` protocol is deliberately small:
 
@@ -179,7 +189,7 @@ choose_action(*, state: OracleState, available_action_ids: Sequence[int]) -> int
 
 When `candidate_limit=None`, greedy search scores every available action and is exact. A finite limit first samples candidate actions without replacement; its name becomes `sampled_information_gain_N`, and results must be described as sampled/approximate rather than exact greedy information gain.
 
-### `reuse/runner.py`: one episode
+### `reuse/numeric_engine/runner.py`: one episode
 
 `run_episode()` coordinates the objects without leaking the hidden world:
 
@@ -197,6 +207,8 @@ initial OracleState
 
 The runner rejects repeated/unavailable policy actions, a budget larger than the stage's distinct action set, mismatched environment/oracle specs, and mismatched config/oracle stages. `world_index` is result metadata; it is never passed to the policy.
 
+`run_full_candidate_greedy_episode()` is an optional runner for full-candidate greedy with the stage's maximum action budget. It shares the episode mechanics above but stops when one world survives or the best action has only one predicted outcome. Since this policy has scored every remaining action, the latter certifies that none can split the surviving worlds, even if more than one world remains. Its `FullCandidateGreedyEpisodeResult` keeps executed steps in `episode.steps`, reports `termination_reason` and `final_survivor_count`, and provides `uncertainty_trajectory_bits` from `t=0` through the full budget. Values after an early stop are a proven constant suffix, not executed actions. The ordinary `run_episode()` still executes its configured budget.
+
 `toys/` contains exploratory scripts that use the reusable runner and policies. `experiment/phase-1/track-*/` is reserved for the planned Phase-1 studies and their records. Neither directory changes the `core` inference contracts.
 
 ## 5. Practical extension guide
@@ -213,6 +225,7 @@ The runner rejects repeated/unavailable policy actions, a budget larger than the
 - `tests/test_evaluator.py`: Stage A/B/C intervention semantics and shape/value validation.
 - `tests/test_oracle.py`: action-ID prefixes, encoding, monotone immutable updates, replay, predictive distributions, stage checks, and lazy caching.
 - `tests/test_experiment_runner.py`: runner invariants, metrics, reproducible random choice, and greedy policy behavior.
+- `tests/test_numeric_worlds.py`: numeric world order, response parity with the JSONL reference, cache persistence and corruption checks, and greedy episode parity.
 
 Run commands from `src/` because imports use `core`, `reuse`, `toys`, and `dataset` as top-level packages:
 

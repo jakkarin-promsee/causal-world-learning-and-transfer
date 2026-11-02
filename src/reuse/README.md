@@ -1,5 +1,9 @@
-# Reusable episode tools
+# Reusable episode paths
 
-`policies.py` chooses actions from the current `OracleState` and available action IDs. `runner.py` runs one episode and records per-step measurements. These modules use the world and oracle contracts in `../core/` without adding experiment-specific conditions.
+`numeric_engine/` is the main development path. It stores canonical world rules in numeric `.npy`, computes response columns in NumPy batches, and can persist requested response columns as `.npy` cache files. Its `policies.py` and `runner.py` are the active copies. Top-level `reuse.policies` and `reuse.runner` re-export them for existing imports.
 
-Keep hidden-world access inside `Environment` and the runner. A policy receives neither `true_world` nor `world_index`. Run Python commands from `src/` and import these tools through `reuse.policies` and `reuse.runner`.
+`jsonl_reference/` keeps the earlier runner and policy implementation as a stable comparison reference. Use it with `core.storage.WorldDataset` and `core.oracle.OnDemandResponseStore` over the JSONL dataset. New numeric-path work does not require parallel edits there; update it deliberately only when a reference comparison needs the same conceptual feature.
+
+Both paths use `core.oracle.ExactOracle`, `OracleState`, `Environment`, and stable action IDs. A policy never receives the hidden world or its dataset index.
+
+See [the numeric-path guide](numeric_engine/README.md) for generation, cache use, and validation commands. Run Python commands from `src/`.
