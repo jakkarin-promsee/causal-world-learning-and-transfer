@@ -1,0 +1,2617 @@
+{
+  "schema": "track1-exp01-numeric-summary-v4",
+  "generated_utc": "2026-11-03T12:41:24+00:00",
+  "source": {
+    "run_name": "exp-01-short",
+    "run_status": "complete",
+    "elapsed_seconds": 150.7941554999852,
+    "run_directory": "C:\\Users\\BTCOM\\Desktop\\beyond-backprop-learning\\src\\experiment\\phase-1\\track-1\\exp-01-short\\runs\\20261103T061845Z",
+    "episodes_jsonl_sha256": "ed5ea37723a64a18fe8ebb212e56a1def1b074dec510452825a704e2beeb8fe0",
+    "selected_world_indices_sha256": "70eda61d28902cdd36d81ee27cc173616f055c6c3696116086c9d8487873e978",
+    "worlds_sha256": "d723b8f477d419fda9385040454f040f3b18e6afc905130016f7e5cbd4be3f53",
+    "policy": "full-candidate greedy information gain",
+    "candidate_limit": null
+  },
+  "worlds": 10,
+  "definitions": {
+    "unit": "paired hidden world",
+    "sd": "sample standard deviation across worlds (ddof=1)",
+    "action_trace_equal": "same number and ordered IDs of actually executed actions",
+    "action_match_denominator": "steps at which both compared stages executed an action; extra actions excluded",
+    "shared_prefix": "consecutive same action IDs from step 1 until the first mismatch, divided by comparable executed steps; aggregate ratio pools numerator and denominator across worlds",
+    "percentage_denominator": "completed paired worlds for episode counts; comparable steps for action-ID matches; worlds within the named action-trace category for grouped stop order",
+    "stop_step": "number of actually executed actions before singleton or certified equivalence",
+    "grouped_stop_delta": "second-stage stop step minus first-stage stop step; positive means the first stage stopped earlier; absolute delta avoids cancellation",
+    "final_u_equality": "exact equality of final survivor counts, equivalent to equality of log2 survivor counts; subgroup stop percentages use subgroup worlds",
+    "mean_terminal_u_and_c": "computed separately across worlds; mean U is not log2(mean C)"
+  },
+  "terminal_by_stage": {
+    "A": {
+      "final_uncertainty_bits": {
+        "mean": 1.6732167425663385,
+        "sample_sd": 1.534218017187932,
+        "min": 0.0,
+        "max": 4.807354922057604
+      },
+      "final_survivor_count": {
+        "mean": 5.7,
+        "sample_sd": 8.11103500725332,
+        "min": 1,
+        "max": 28
+      },
+      "stop_step": {
+        "mean": 5.9,
+        "sample_sd": 0.7378647873726218,
+        "min": 5,
+        "max": 7
+      },
+      "termination_reason": {
+        "singleton": {
+          "count": 3,
+          "denominator": 10,
+          "percent": 30.0
+        },
+        "equivalent": {
+          "count": 7,
+          "denominator": 10,
+          "percent": 70.0
+        },
+        "budget_exhausted": {
+          "count": 0,
+          "denominator": 10,
+          "percent": 0.0
+        }
+      }
+    },
+    "B": {
+      "final_uncertainty_bits": {
+        "mean": 0.0,
+        "sample_sd": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "final_survivor_count": {
+        "mean": 1,
+        "sample_sd": 0.0,
+        "min": 1,
+        "max": 1
+      },
+      "stop_step": {
+        "mean": 7.3,
+        "sample_sd": 0.9486832980505138,
+        "min": 6,
+        "max": 9
+      },
+      "termination_reason": {
+        "singleton": {
+          "count": 10,
+          "denominator": 10,
+          "percent": 100.0
+        },
+        "equivalent": {
+          "count": 0,
+          "denominator": 10,
+          "percent": 0.0
+        },
+        "budget_exhausted": {
+          "count": 0,
+          "denominator": 10,
+          "percent": 0.0
+        }
+      }
+    },
+    "C": {
+      "final_uncertainty_bits": {
+        "mean": 0.0,
+        "sample_sd": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "final_survivor_count": {
+        "mean": 1,
+        "sample_sd": 0.0,
+        "min": 1,
+        "max": 1
+      },
+      "stop_step": {
+        "mean": 7.2,
+        "sample_sd": 0.9189365834726815,
+        "min": 6,
+        "max": 9
+      },
+      "termination_reason": {
+        "singleton": {
+          "count": 10,
+          "denominator": 10,
+          "percent": 100.0
+        },
+        "equivalent": {
+          "count": 0,
+          "denominator": 10,
+          "percent": 0.0
+        },
+        "budget_exhausted": {
+          "count": 0,
+          "denominator": 10,
+          "percent": 0.0
+        }
+      }
+    }
+  },
+  "equality_patterns": {
+    "action_trace": {
+      "all_equal": {
+        "count": 2,
+        "denominator": 10,
+        "percent": 20.0,
+        "episodes": [
+          1,
+          8
+        ]
+      },
+      "b_c_equal_a_differs": {
+        "count": 7,
+        "denominator": 10,
+        "percent": 70.0,
+        "episodes": [
+          2,
+          3,
+          4,
+          5,
+          7,
+          9,
+          10
+        ]
+      },
+      "c_differs_both": {
+        "count": 1,
+        "denominator": 10,
+        "percent": 10.0,
+        "episodes": [
+          6
+        ]
+      },
+      "a_c_equal_b_differs": {
+        "count": 0,
+        "denominator": 10,
+        "percent": 0.0,
+        "episodes": []
+      }
+    },
+    "final_survivor": {
+      "all_equal": {
+        "count": 3,
+        "denominator": 10,
+        "percent": 30.0,
+        "episodes": [
+          1,
+          5,
+          8
+        ]
+      },
+      "b_c_equal_a_differs": {
+        "count": 7,
+        "denominator": 10,
+        "percent": 70.0,
+        "episodes": [
+          2,
+          3,
+          4,
+          6,
+          7,
+          9,
+          10
+        ]
+      },
+      "c_differs_both": {
+        "count": 0,
+        "denominator": 10,
+        "percent": 0.0,
+        "episodes": []
+      },
+      "a_c_equal_b_differs": {
+        "count": 0,
+        "denominator": 10,
+        "percent": 0.0,
+        "episodes": []
+      }
+    }
+  },
+  "inclusive_equality": {
+    "action_trace": {
+      "B_equals_C": {
+        "count": 9,
+        "denominator": 10,
+        "percent": 90.0
+      },
+      "A_equals_B_equals_C": {
+        "count": 2,
+        "denominator": 10,
+        "percent": 20.0,
+        "episodes": [
+          1,
+          8
+        ]
+      }
+    },
+    "final_survivor": {
+      "B_equals_C": {
+        "count": 10,
+        "denominator": 10,
+        "percent": 100.0
+      },
+      "A_equals_B_equals_C": {
+        "count": 3,
+        "denominator": 10,
+        "percent": 30.0,
+        "episodes": [
+          1,
+          5,
+          8
+        ]
+      }
+    }
+  },
+  "action_comparisons": {
+    "all_worlds": {
+      "A_vs_B": {
+        "episodes": 10,
+        "comparable_steps": 59,
+        "same_action_id": {
+          "count": 51,
+          "denominator": 59,
+          "percent": 86.44067796610169
+        },
+        "different_action_id": {
+          "count": 8,
+          "denominator": 59,
+          "percent": 13.559322033898304
+        },
+        "shared_prefix": {
+          "count": 49,
+          "denominator": 59,
+          "percent": 83.05084745762711
+        },
+        "extra_actions_first": 0,
+        "extra_actions_second": 14
+      },
+      "A_vs_C": {
+        "episodes": 10,
+        "comparable_steps": 59,
+        "same_action_id": {
+          "count": 51,
+          "denominator": 59,
+          "percent": 86.44067796610169
+        },
+        "different_action_id": {
+          "count": 8,
+          "denominator": 59,
+          "percent": 13.559322033898304
+        },
+        "shared_prefix": {
+          "count": 49,
+          "denominator": 59,
+          "percent": 83.05084745762711
+        },
+        "extra_actions_first": 0,
+        "extra_actions_second": 13
+      },
+      "B_vs_C": {
+        "episodes": 10,
+        "comparable_steps": 72,
+        "same_action_id": {
+          "count": 70,
+          "denominator": 72,
+          "percent": 97.22222222222223
+        },
+        "different_action_id": {
+          "count": 2,
+          "denominator": 72,
+          "percent": 2.7777777777777777
+        },
+        "shared_prefix": {
+          "count": 70,
+          "denominator": 72,
+          "percent": 97.22222222222223
+        },
+        "extra_actions_first": 1,
+        "extra_actions_second": 0
+      }
+    },
+    "by_action_trace_pattern": {
+      "all_equal": {
+        "A_vs_B": {
+          "episodes": 2,
+          "comparable_steps": 13,
+          "same_action_id": {
+            "count": 13,
+            "denominator": 13,
+            "percent": 100.0
+          },
+          "different_action_id": {
+            "count": 0,
+            "denominator": 13,
+            "percent": 0.0
+          },
+          "shared_prefix": {
+            "count": 13,
+            "denominator": 13,
+            "percent": 100.0
+          },
+          "extra_actions_first": 0,
+          "extra_actions_second": 0
+        },
+        "A_vs_C": {
+          "episodes": 2,
+          "comparable_steps": 13,
+          "same_action_id": {
+            "count": 13,
+            "denominator": 13,
+            "percent": 100.0
+          },
+          "different_action_id": {
+            "count": 0,
+            "denominator": 13,
+            "percent": 0.0
+          },
+          "shared_prefix": {
+            "count": 13,
+            "denominator": 13,
+            "percent": 100.0
+          },
+          "extra_actions_first": 0,
+          "extra_actions_second": 0
+        },
+        "B_vs_C": {
+          "episodes": 2,
+          "comparable_steps": 13,
+          "same_action_id": {
+            "count": 13,
+            "denominator": 13,
+            "percent": 100.0
+          },
+          "different_action_id": {
+            "count": 0,
+            "denominator": 13,
+            "percent": 0.0
+          },
+          "shared_prefix": {
+            "count": 13,
+            "denominator": 13,
+            "percent": 100.0
+          },
+          "extra_actions_first": 0,
+          "extra_actions_second": 0
+        }
+      },
+      "b_c_equal_a_differs": {
+        "A_vs_B": {
+          "episodes": 7,
+          "comparable_steps": 41,
+          "same_action_id": {
+            "count": 34,
+            "denominator": 41,
+            "percent": 82.92682926829268
+          },
+          "different_action_id": {
+            "count": 7,
+            "denominator": 41,
+            "percent": 17.073170731707318
+          },
+          "shared_prefix": {
+            "count": 32,
+            "denominator": 41,
+            "percent": 78.04878048780488
+          },
+          "extra_actions_first": 0,
+          "extra_actions_second": 11
+        },
+        "A_vs_C": {
+          "episodes": 7,
+          "comparable_steps": 41,
+          "same_action_id": {
+            "count": 34,
+            "denominator": 41,
+            "percent": 82.92682926829268
+          },
+          "different_action_id": {
+            "count": 7,
+            "denominator": 41,
+            "percent": 17.073170731707318
+          },
+          "shared_prefix": {
+            "count": 32,
+            "denominator": 41,
+            "percent": 78.04878048780488
+          },
+          "extra_actions_first": 0,
+          "extra_actions_second": 11
+        },
+        "B_vs_C": {
+          "episodes": 7,
+          "comparable_steps": 52,
+          "same_action_id": {
+            "count": 52,
+            "denominator": 52,
+            "percent": 100.0
+          },
+          "different_action_id": {
+            "count": 0,
+            "denominator": 52,
+            "percent": 0.0
+          },
+          "shared_prefix": {
+            "count": 52,
+            "denominator": 52,
+            "percent": 100.0
+          },
+          "extra_actions_first": 0,
+          "extra_actions_second": 0
+        }
+      },
+      "c_differs_both": {
+        "A_vs_B": {
+          "episodes": 1,
+          "comparable_steps": 5,
+          "same_action_id": {
+            "count": 4,
+            "denominator": 5,
+            "percent": 80.0
+          },
+          "different_action_id": {
+            "count": 1,
+            "denominator": 5,
+            "percent": 20.0
+          },
+          "shared_prefix": {
+            "count": 4,
+            "denominator": 5,
+            "percent": 80.0
+          },
+          "extra_actions_first": 0,
+          "extra_actions_second": 3
+        },
+        "A_vs_C": {
+          "episodes": 1,
+          "comparable_steps": 5,
+          "same_action_id": {
+            "count": 4,
+            "denominator": 5,
+            "percent": 80.0
+          },
+          "different_action_id": {
+            "count": 1,
+            "denominator": 5,
+            "percent": 20.0
+          },
+          "shared_prefix": {
+            "count": 4,
+            "denominator": 5,
+            "percent": 80.0
+          },
+          "extra_actions_first": 0,
+          "extra_actions_second": 2
+        },
+        "B_vs_C": {
+          "episodes": 1,
+          "comparable_steps": 7,
+          "same_action_id": {
+            "count": 5,
+            "denominator": 7,
+            "percent": 71.42857142857143
+          },
+          "different_action_id": {
+            "count": 2,
+            "denominator": 7,
+            "percent": 28.571428571428573
+          },
+          "shared_prefix": {
+            "count": 5,
+            "denominator": 7,
+            "percent": 71.42857142857143
+          },
+          "extra_actions_first": 1,
+          "extra_actions_second": 0
+        }
+      },
+      "a_c_equal_b_differs": {
+        "A_vs_B": {
+          "episodes": 0,
+          "comparable_steps": 0,
+          "same_action_id": {
+            "count": 0,
+            "denominator": 0,
+            "percent": null
+          },
+          "different_action_id": {
+            "count": 0,
+            "denominator": 0,
+            "percent": null
+          },
+          "shared_prefix": {
+            "count": 0,
+            "denominator": 0,
+            "percent": null
+          },
+          "extra_actions_first": 0,
+          "extra_actions_second": 0
+        },
+        "A_vs_C": {
+          "episodes": 0,
+          "comparable_steps": 0,
+          "same_action_id": {
+            "count": 0,
+            "denominator": 0,
+            "percent": null
+          },
+          "different_action_id": {
+            "count": 0,
+            "denominator": 0,
+            "percent": null
+          },
+          "shared_prefix": {
+            "count": 0,
+            "denominator": 0,
+            "percent": null
+          },
+          "extra_actions_first": 0,
+          "extra_actions_second": 0
+        },
+        "B_vs_C": {
+          "episodes": 0,
+          "comparable_steps": 0,
+          "same_action_id": {
+            "count": 0,
+            "denominator": 0,
+            "percent": null
+          },
+          "different_action_id": {
+            "count": 0,
+            "denominator": 0,
+            "percent": null
+          },
+          "shared_prefix": {
+            "count": 0,
+            "denominator": 0,
+            "percent": null
+          },
+          "extra_actions_first": 0,
+          "extra_actions_second": 0
+        }
+      }
+    }
+  },
+  "stop_order": {
+    "pairwise": {
+      "A_vs_B": {
+        "A_earlier": {
+          "count": 8,
+          "denominator": 10,
+          "percent": 80.0
+        },
+        "tie": {
+          "count": 2,
+          "denominator": 10,
+          "percent": 20.0
+        },
+        "B_earlier": {
+          "count": 0,
+          "denominator": 10,
+          "percent": 0.0
+        }
+      },
+      "A_vs_C": {
+        "A_earlier": {
+          "count": 8,
+          "denominator": 10,
+          "percent": 80.0
+        },
+        "tie": {
+          "count": 2,
+          "denominator": 10,
+          "percent": 20.0
+        },
+        "C_earlier": {
+          "count": 0,
+          "denominator": 10,
+          "percent": 0.0
+        }
+      },
+      "B_vs_C": {
+        "B_earlier": {
+          "count": 0,
+          "denominator": 10,
+          "percent": 0.0
+        },
+        "tie": {
+          "count": 9,
+          "denominator": 10,
+          "percent": 90.0
+        },
+        "C_earlier": {
+          "count": 1,
+          "denominator": 10,
+          "percent": 10.0
+        }
+      }
+    },
+    "strict_first": {
+      "A": {
+        "count": 8,
+        "denominator": 10,
+        "percent": 80.0
+      },
+      "B": {
+        "count": 0,
+        "denominator": 10,
+        "percent": 0.0
+      },
+      "C": {
+        "count": 0,
+        "denominator": 10,
+        "percent": 0.0
+      },
+      "tie_for_first": {
+        "count": 2,
+        "denominator": 10,
+        "percent": 20.0
+      }
+    },
+    "by_action_trace_pattern": {
+      "all_equal": {
+        "A_vs_B": {
+          "episodes": 2,
+          "first_earlier": {
+            "count": 0,
+            "denominator": 2,
+            "percent": 0.0
+          },
+          "tie": {
+            "count": 2,
+            "denominator": 2,
+            "percent": 100.0
+          },
+          "second_earlier": {
+            "count": 0,
+            "denominator": 2,
+            "percent": 0.0
+          },
+          "signed_delta_second_minus_first_steps": {
+            "mean": 0,
+            "sample_sd": 0.0,
+            "min": 0,
+            "max": 0
+          },
+          "absolute_delta_steps": {
+            "mean": 0,
+            "sample_sd": 0.0,
+            "min": 0,
+            "max": 0
+          },
+          "by_final_u_equality": {
+            "same_final_u": {
+              "share_of_trace_group": {
+                "count": 2,
+                "denominator": 2,
+                "percent": 100.0
+              },
+              "episodes": 2,
+              "first_earlier": {
+                "count": 0,
+                "denominator": 2,
+                "percent": 0.0
+              },
+              "tie": {
+                "count": 2,
+                "denominator": 2,
+                "percent": 100.0
+              },
+              "second_earlier": {
+                "count": 0,
+                "denominator": 2,
+                "percent": 0.0
+              },
+              "signed_delta_second_minus_first_steps": {
+                "mean": 0,
+                "sample_sd": 0.0,
+                "min": 0,
+                "max": 0
+              },
+              "absolute_delta_steps": {
+                "mean": 0,
+                "sample_sd": 0.0,
+                "min": 0,
+                "max": 0
+              }
+            },
+            "different_final_u": {
+              "share_of_trace_group": {
+                "count": 0,
+                "denominator": 2,
+                "percent": 0.0
+              },
+              "episodes": 0,
+              "first_earlier": {
+                "count": 0,
+                "denominator": 0,
+                "percent": null
+              },
+              "tie": {
+                "count": 0,
+                "denominator": 0,
+                "percent": null
+              },
+              "second_earlier": {
+                "count": 0,
+                "denominator": 0,
+                "percent": null
+              },
+              "signed_delta_second_minus_first_steps": null,
+              "absolute_delta_steps": null
+            }
+          }
+        },
+        "A_vs_C": {
+          "episodes": 2,
+          "first_earlier": {
+            "count": 0,
+            "denominator": 2,
+            "percent": 0.0
+          },
+          "tie": {
+            "count": 2,
+            "denominator": 2,
+            "percent": 100.0
+          },
+          "second_earlier": {
+            "count": 0,
+            "denominator": 2,
+            "percent": 0.0
+          },
+          "signed_delta_second_minus_first_steps": {
+            "mean": 0,
+            "sample_sd": 0.0,
+            "min": 0,
+            "max": 0
+          },
+          "absolute_delta_steps": {
+            "mean": 0,
+            "sample_sd": 0.0,
+            "min": 0,
+            "max": 0
+          },
+          "by_final_u_equality": {
+            "same_final_u": {
+              "share_of_trace_group": {
+                "count": 2,
+                "denominator": 2,
+                "percent": 100.0
+              },
+              "episodes": 2,
+              "first_earlier": {
+                "count": 0,
+                "denominator": 2,
+                "percent": 0.0
+              },
+              "tie": {
+                "count": 2,
+                "denominator": 2,
+                "percent": 100.0
+              },
+              "second_earlier": {
+                "count": 0,
+                "denominator": 2,
+                "percent": 0.0
+              },
+              "signed_delta_second_minus_first_steps": {
+                "mean": 0,
+                "sample_sd": 0.0,
+                "min": 0,
+                "max": 0
+              },
+              "absolute_delta_steps": {
+                "mean": 0,
+                "sample_sd": 0.0,
+                "min": 0,
+                "max": 0
+              }
+            },
+            "different_final_u": {
+              "share_of_trace_group": {
+                "count": 0,
+                "denominator": 2,
+                "percent": 0.0
+              },
+              "episodes": 0,
+              "first_earlier": {
+                "count": 0,
+                "denominator": 0,
+                "percent": null
+              },
+              "tie": {
+                "count": 0,
+                "denominator": 0,
+                "percent": null
+              },
+              "second_earlier": {
+                "count": 0,
+                "denominator": 0,
+                "percent": null
+              },
+              "signed_delta_second_minus_first_steps": null,
+              "absolute_delta_steps": null
+            }
+          }
+        },
+        "B_vs_C": {
+          "episodes": 2,
+          "first_earlier": {
+            "count": 0,
+            "denominator": 2,
+            "percent": 0.0
+          },
+          "tie": {
+            "count": 2,
+            "denominator": 2,
+            "percent": 100.0
+          },
+          "second_earlier": {
+            "count": 0,
+            "denominator": 2,
+            "percent": 0.0
+          },
+          "signed_delta_second_minus_first_steps": {
+            "mean": 0,
+            "sample_sd": 0.0,
+            "min": 0,
+            "max": 0
+          },
+          "absolute_delta_steps": {
+            "mean": 0,
+            "sample_sd": 0.0,
+            "min": 0,
+            "max": 0
+          },
+          "by_final_u_equality": {
+            "same_final_u": {
+              "share_of_trace_group": {
+                "count": 2,
+                "denominator": 2,
+                "percent": 100.0
+              },
+              "episodes": 2,
+              "first_earlier": {
+                "count": 0,
+                "denominator": 2,
+                "percent": 0.0
+              },
+              "tie": {
+                "count": 2,
+                "denominator": 2,
+                "percent": 100.0
+              },
+              "second_earlier": {
+                "count": 0,
+                "denominator": 2,
+                "percent": 0.0
+              },
+              "signed_delta_second_minus_first_steps": {
+                "mean": 0,
+                "sample_sd": 0.0,
+                "min": 0,
+                "max": 0
+              },
+              "absolute_delta_steps": {
+                "mean": 0,
+                "sample_sd": 0.0,
+                "min": 0,
+                "max": 0
+              }
+            },
+            "different_final_u": {
+              "share_of_trace_group": {
+                "count": 0,
+                "denominator": 2,
+                "percent": 0.0
+              },
+              "episodes": 0,
+              "first_earlier": {
+                "count": 0,
+                "denominator": 0,
+                "percent": null
+              },
+              "tie": {
+                "count": 0,
+                "denominator": 0,
+                "percent": null
+              },
+              "second_earlier": {
+                "count": 0,
+                "denominator": 0,
+                "percent": null
+              },
+              "signed_delta_second_minus_first_steps": null,
+              "absolute_delta_steps": null
+            }
+          }
+        }
+      },
+      "b_c_equal_a_differs": {
+        "A_vs_B": {
+          "episodes": 7,
+          "first_earlier": {
+            "count": 7,
+            "denominator": 7,
+            "percent": 100.0
+          },
+          "tie": {
+            "count": 0,
+            "denominator": 7,
+            "percent": 0.0
+          },
+          "second_earlier": {
+            "count": 0,
+            "denominator": 7,
+            "percent": 0.0
+          },
+          "signed_delta_second_minus_first_steps": {
+            "mean": 1.5714285714285714,
+            "sample_sd": 0.5345224838248488,
+            "min": 1,
+            "max": 2
+          },
+          "absolute_delta_steps": {
+            "mean": 1.5714285714285714,
+            "sample_sd": 0.5345224838248488,
+            "min": 1,
+            "max": 2
+          },
+          "by_final_u_equality": {
+            "same_final_u": {
+              "share_of_trace_group": {
+                "count": 1,
+                "denominator": 7,
+                "percent": 14.285714285714286
+              },
+              "episodes": 1,
+              "first_earlier": {
+                "count": 1,
+                "denominator": 1,
+                "percent": 100.0
+              },
+              "tie": {
+                "count": 0,
+                "denominator": 1,
+                "percent": 0.0
+              },
+              "second_earlier": {
+                "count": 0,
+                "denominator": 1,
+                "percent": 0.0
+              },
+              "signed_delta_second_minus_first_steps": {
+                "mean": 1,
+                "sample_sd": null,
+                "min": 1,
+                "max": 1
+              },
+              "absolute_delta_steps": {
+                "mean": 1,
+                "sample_sd": null,
+                "min": 1,
+                "max": 1
+              }
+            },
+            "different_final_u": {
+              "share_of_trace_group": {
+                "count": 6,
+                "denominator": 7,
+                "percent": 85.71428571428571
+              },
+              "episodes": 6,
+              "first_earlier": {
+                "count": 6,
+                "denominator": 6,
+                "percent": 100.0
+              },
+              "tie": {
+                "count": 0,
+                "denominator": 6,
+                "percent": 0.0
+              },
+              "second_earlier": {
+                "count": 0,
+                "denominator": 6,
+                "percent": 0.0
+              },
+              "signed_delta_second_minus_first_steps": {
+                "mean": 1.6666666666666667,
+                "sample_sd": 0.5163977794943223,
+                "min": 1,
+                "max": 2
+              },
+              "absolute_delta_steps": {
+                "mean": 1.6666666666666667,
+                "sample_sd": 0.5163977794943223,
+                "min": 1,
+                "max": 2
+              }
+            }
+          }
+        },
+        "A_vs_C": {
+          "episodes": 7,
+          "first_earlier": {
+            "count": 7,
+            "denominator": 7,
+            "percent": 100.0
+          },
+          "tie": {
+            "count": 0,
+            "denominator": 7,
+            "percent": 0.0
+          },
+          "second_earlier": {
+            "count": 0,
+            "denominator": 7,
+            "percent": 0.0
+          },
+          "signed_delta_second_minus_first_steps": {
+            "mean": 1.5714285714285714,
+            "sample_sd": 0.5345224838248488,
+            "min": 1,
+            "max": 2
+          },
+          "absolute_delta_steps": {
+            "mean": 1.5714285714285714,
+            "sample_sd": 0.5345224838248488,
+            "min": 1,
+            "max": 2
+          },
+          "by_final_u_equality": {
+            "same_final_u": {
+              "share_of_trace_group": {
+                "count": 1,
+                "denominator": 7,
+                "percent": 14.285714285714286
+              },
+              "episodes": 1,
+              "first_earlier": {
+                "count": 1,
+                "denominator": 1,
+                "percent": 100.0
+              },
+              "tie": {
+                "count": 0,
+                "denominator": 1,
+                "percent": 0.0
+              },
+              "second_earlier": {
+                "count": 0,
+                "denominator": 1,
+                "percent": 0.0
+              },
+              "signed_delta_second_minus_first_steps": {
+                "mean": 1,
+                "sample_sd": null,
+                "min": 1,
+                "max": 1
+              },
+              "absolute_delta_steps": {
+                "mean": 1,
+                "sample_sd": null,
+                "min": 1,
+                "max": 1
+              }
+            },
+            "different_final_u": {
+              "share_of_trace_group": {
+                "count": 6,
+                "denominator": 7,
+                "percent": 85.71428571428571
+              },
+              "episodes": 6,
+              "first_earlier": {
+                "count": 6,
+                "denominator": 6,
+                "percent": 100.0
+              },
+              "tie": {
+                "count": 0,
+                "denominator": 6,
+                "percent": 0.0
+              },
+              "second_earlier": {
+                "count": 0,
+                "denominator": 6,
+                "percent": 0.0
+              },
+              "signed_delta_second_minus_first_steps": {
+                "mean": 1.6666666666666667,
+                "sample_sd": 0.5163977794943223,
+                "min": 1,
+                "max": 2
+              },
+              "absolute_delta_steps": {
+                "mean": 1.6666666666666667,
+                "sample_sd": 0.5163977794943223,
+                "min": 1,
+                "max": 2
+              }
+            }
+          }
+        },
+        "B_vs_C": {
+          "episodes": 7,
+          "first_earlier": {
+            "count": 0,
+            "denominator": 7,
+            "percent": 0.0
+          },
+          "tie": {
+            "count": 7,
+            "denominator": 7,
+            "percent": 100.0
+          },
+          "second_earlier": {
+            "count": 0,
+            "denominator": 7,
+            "percent": 0.0
+          },
+          "signed_delta_second_minus_first_steps": {
+            "mean": 0,
+            "sample_sd": 0.0,
+            "min": 0,
+            "max": 0
+          },
+          "absolute_delta_steps": {
+            "mean": 0,
+            "sample_sd": 0.0,
+            "min": 0,
+            "max": 0
+          },
+          "by_final_u_equality": {
+            "same_final_u": {
+              "share_of_trace_group": {
+                "count": 7,
+                "denominator": 7,
+                "percent": 100.0
+              },
+              "episodes": 7,
+              "first_earlier": {
+                "count": 0,
+                "denominator": 7,
+                "percent": 0.0
+              },
+              "tie": {
+                "count": 7,
+                "denominator": 7,
+                "percent": 100.0
+              },
+              "second_earlier": {
+                "count": 0,
+                "denominator": 7,
+                "percent": 0.0
+              },
+              "signed_delta_second_minus_first_steps": {
+                "mean": 0,
+                "sample_sd": 0.0,
+                "min": 0,
+                "max": 0
+              },
+              "absolute_delta_steps": {
+                "mean": 0,
+                "sample_sd": 0.0,
+                "min": 0,
+                "max": 0
+              }
+            },
+            "different_final_u": {
+              "share_of_trace_group": {
+                "count": 0,
+                "denominator": 7,
+                "percent": 0.0
+              },
+              "episodes": 0,
+              "first_earlier": {
+                "count": 0,
+                "denominator": 0,
+                "percent": null
+              },
+              "tie": {
+                "count": 0,
+                "denominator": 0,
+                "percent": null
+              },
+              "second_earlier": {
+                "count": 0,
+                "denominator": 0,
+                "percent": null
+              },
+              "signed_delta_second_minus_first_steps": null,
+              "absolute_delta_steps": null
+            }
+          }
+        }
+      },
+      "c_differs_both": {
+        "A_vs_B": {
+          "episodes": 1,
+          "first_earlier": {
+            "count": 1,
+            "denominator": 1,
+            "percent": 100.0
+          },
+          "tie": {
+            "count": 0,
+            "denominator": 1,
+            "percent": 0.0
+          },
+          "second_earlier": {
+            "count": 0,
+            "denominator": 1,
+            "percent": 0.0
+          },
+          "signed_delta_second_minus_first_steps": {
+            "mean": 3,
+            "sample_sd": null,
+            "min": 3,
+            "max": 3
+          },
+          "absolute_delta_steps": {
+            "mean": 3,
+            "sample_sd": null,
+            "min": 3,
+            "max": 3
+          },
+          "by_final_u_equality": {
+            "same_final_u": {
+              "share_of_trace_group": {
+                "count": 0,
+                "denominator": 1,
+                "percent": 0.0
+              },
+              "episodes": 0,
+              "first_earlier": {
+                "count": 0,
+                "denominator": 0,
+                "percent": null
+              },
+              "tie": {
+                "count": 0,
+                "denominator": 0,
+                "percent": null
+              },
+              "second_earlier": {
+                "count": 0,
+                "denominator": 0,
+                "percent": null
+              },
+              "signed_delta_second_minus_first_steps": null,
+              "absolute_delta_steps": null
+            },
+            "different_final_u": {
+              "share_of_trace_group": {
+                "count": 1,
+                "denominator": 1,
+                "percent": 100.0
+              },
+              "episodes": 1,
+              "first_earlier": {
+                "count": 1,
+                "denominator": 1,
+                "percent": 100.0
+              },
+              "tie": {
+                "count": 0,
+                "denominator": 1,
+                "percent": 0.0
+              },
+              "second_earlier": {
+                "count": 0,
+                "denominator": 1,
+                "percent": 0.0
+              },
+              "signed_delta_second_minus_first_steps": {
+                "mean": 3,
+                "sample_sd": null,
+                "min": 3,
+                "max": 3
+              },
+              "absolute_delta_steps": {
+                "mean": 3,
+                "sample_sd": null,
+                "min": 3,
+                "max": 3
+              }
+            }
+          }
+        },
+        "A_vs_C": {
+          "episodes": 1,
+          "first_earlier": {
+            "count": 1,
+            "denominator": 1,
+            "percent": 100.0
+          },
+          "tie": {
+            "count": 0,
+            "denominator": 1,
+            "percent": 0.0
+          },
+          "second_earlier": {
+            "count": 0,
+            "denominator": 1,
+            "percent": 0.0
+          },
+          "signed_delta_second_minus_first_steps": {
+            "mean": 2,
+            "sample_sd": null,
+            "min": 2,
+            "max": 2
+          },
+          "absolute_delta_steps": {
+            "mean": 2,
+            "sample_sd": null,
+            "min": 2,
+            "max": 2
+          },
+          "by_final_u_equality": {
+            "same_final_u": {
+              "share_of_trace_group": {
+                "count": 0,
+                "denominator": 1,
+                "percent": 0.0
+              },
+              "episodes": 0,
+              "first_earlier": {
+                "count": 0,
+                "denominator": 0,
+                "percent": null
+              },
+              "tie": {
+                "count": 0,
+                "denominator": 0,
+                "percent": null
+              },
+              "second_earlier": {
+                "count": 0,
+                "denominator": 0,
+                "percent": null
+              },
+              "signed_delta_second_minus_first_steps": null,
+              "absolute_delta_steps": null
+            },
+            "different_final_u": {
+              "share_of_trace_group": {
+                "count": 1,
+                "denominator": 1,
+                "percent": 100.0
+              },
+              "episodes": 1,
+              "first_earlier": {
+                "count": 1,
+                "denominator": 1,
+                "percent": 100.0
+              },
+              "tie": {
+                "count": 0,
+                "denominator": 1,
+                "percent": 0.0
+              },
+              "second_earlier": {
+                "count": 0,
+                "denominator": 1,
+                "percent": 0.0
+              },
+              "signed_delta_second_minus_first_steps": {
+                "mean": 2,
+                "sample_sd": null,
+                "min": 2,
+                "max": 2
+              },
+              "absolute_delta_steps": {
+                "mean": 2,
+                "sample_sd": null,
+                "min": 2,
+                "max": 2
+              }
+            }
+          }
+        },
+        "B_vs_C": {
+          "episodes": 1,
+          "first_earlier": {
+            "count": 0,
+            "denominator": 1,
+            "percent": 0.0
+          },
+          "tie": {
+            "count": 0,
+            "denominator": 1,
+            "percent": 0.0
+          },
+          "second_earlier": {
+            "count": 1,
+            "denominator": 1,
+            "percent": 100.0
+          },
+          "signed_delta_second_minus_first_steps": {
+            "mean": -1,
+            "sample_sd": null,
+            "min": -1,
+            "max": -1
+          },
+          "absolute_delta_steps": {
+            "mean": 1,
+            "sample_sd": null,
+            "min": 1,
+            "max": 1
+          },
+          "by_final_u_equality": {
+            "same_final_u": {
+              "share_of_trace_group": {
+                "count": 1,
+                "denominator": 1,
+                "percent": 100.0
+              },
+              "episodes": 1,
+              "first_earlier": {
+                "count": 0,
+                "denominator": 1,
+                "percent": 0.0
+              },
+              "tie": {
+                "count": 0,
+                "denominator": 1,
+                "percent": 0.0
+              },
+              "second_earlier": {
+                "count": 1,
+                "denominator": 1,
+                "percent": 100.0
+              },
+              "signed_delta_second_minus_first_steps": {
+                "mean": -1,
+                "sample_sd": null,
+                "min": -1,
+                "max": -1
+              },
+              "absolute_delta_steps": {
+                "mean": 1,
+                "sample_sd": null,
+                "min": 1,
+                "max": 1
+              }
+            },
+            "different_final_u": {
+              "share_of_trace_group": {
+                "count": 0,
+                "denominator": 1,
+                "percent": 0.0
+              },
+              "episodes": 0,
+              "first_earlier": {
+                "count": 0,
+                "denominator": 0,
+                "percent": null
+              },
+              "tie": {
+                "count": 0,
+                "denominator": 0,
+                "percent": null
+              },
+              "second_earlier": {
+                "count": 0,
+                "denominator": 0,
+                "percent": null
+              },
+              "signed_delta_second_minus_first_steps": null,
+              "absolute_delta_steps": null
+            }
+          }
+        }
+      },
+      "a_c_equal_b_differs": {
+        "A_vs_B": {
+          "episodes": 0,
+          "first_earlier": {
+            "count": 0,
+            "denominator": 0,
+            "percent": null
+          },
+          "tie": {
+            "count": 0,
+            "denominator": 0,
+            "percent": null
+          },
+          "second_earlier": {
+            "count": 0,
+            "denominator": 0,
+            "percent": null
+          },
+          "signed_delta_second_minus_first_steps": null,
+          "absolute_delta_steps": null,
+          "by_final_u_equality": {
+            "same_final_u": {
+              "share_of_trace_group": {
+                "count": 0,
+                "denominator": 0,
+                "percent": null
+              },
+              "episodes": 0,
+              "first_earlier": {
+                "count": 0,
+                "denominator": 0,
+                "percent": null
+              },
+              "tie": {
+                "count": 0,
+                "denominator": 0,
+                "percent": null
+              },
+              "second_earlier": {
+                "count": 0,
+                "denominator": 0,
+                "percent": null
+              },
+              "signed_delta_second_minus_first_steps": null,
+              "absolute_delta_steps": null
+            },
+            "different_final_u": {
+              "share_of_trace_group": {
+                "count": 0,
+                "denominator": 0,
+                "percent": null
+              },
+              "episodes": 0,
+              "first_earlier": {
+                "count": 0,
+                "denominator": 0,
+                "percent": null
+              },
+              "tie": {
+                "count": 0,
+                "denominator": 0,
+                "percent": null
+              },
+              "second_earlier": {
+                "count": 0,
+                "denominator": 0,
+                "percent": null
+              },
+              "signed_delta_second_minus_first_steps": null,
+              "absolute_delta_steps": null
+            }
+          }
+        },
+        "A_vs_C": {
+          "episodes": 0,
+          "first_earlier": {
+            "count": 0,
+            "denominator": 0,
+            "percent": null
+          },
+          "tie": {
+            "count": 0,
+            "denominator": 0,
+            "percent": null
+          },
+          "second_earlier": {
+            "count": 0,
+            "denominator": 0,
+            "percent": null
+          },
+          "signed_delta_second_minus_first_steps": null,
+          "absolute_delta_steps": null,
+          "by_final_u_equality": {
+            "same_final_u": {
+              "share_of_trace_group": {
+                "count": 0,
+                "denominator": 0,
+                "percent": null
+              },
+              "episodes": 0,
+              "first_earlier": {
+                "count": 0,
+                "denominator": 0,
+                "percent": null
+              },
+              "tie": {
+                "count": 0,
+                "denominator": 0,
+                "percent": null
+              },
+              "second_earlier": {
+                "count": 0,
+                "denominator": 0,
+                "percent": null
+              },
+              "signed_delta_second_minus_first_steps": null,
+              "absolute_delta_steps": null
+            },
+            "different_final_u": {
+              "share_of_trace_group": {
+                "count": 0,
+                "denominator": 0,
+                "percent": null
+              },
+              "episodes": 0,
+              "first_earlier": {
+                "count": 0,
+                "denominator": 0,
+                "percent": null
+              },
+              "tie": {
+                "count": 0,
+                "denominator": 0,
+                "percent": null
+              },
+              "second_earlier": {
+                "count": 0,
+                "denominator": 0,
+                "percent": null
+              },
+              "signed_delta_second_minus_first_steps": null,
+              "absolute_delta_steps": null
+            }
+          }
+        },
+        "B_vs_C": {
+          "episodes": 0,
+          "first_earlier": {
+            "count": 0,
+            "denominator": 0,
+            "percent": null
+          },
+          "tie": {
+            "count": 0,
+            "denominator": 0,
+            "percent": null
+          },
+          "second_earlier": {
+            "count": 0,
+            "denominator": 0,
+            "percent": null
+          },
+          "signed_delta_second_minus_first_steps": null,
+          "absolute_delta_steps": null,
+          "by_final_u_equality": {
+            "same_final_u": {
+              "share_of_trace_group": {
+                "count": 0,
+                "denominator": 0,
+                "percent": null
+              },
+              "episodes": 0,
+              "first_earlier": {
+                "count": 0,
+                "denominator": 0,
+                "percent": null
+              },
+              "tie": {
+                "count": 0,
+                "denominator": 0,
+                "percent": null
+              },
+              "second_earlier": {
+                "count": 0,
+                "denominator": 0,
+                "percent": null
+              },
+              "signed_delta_second_minus_first_steps": null,
+              "absolute_delta_steps": null
+            },
+            "different_final_u": {
+              "share_of_trace_group": {
+                "count": 0,
+                "denominator": 0,
+                "percent": null
+              },
+              "episodes": 0,
+              "first_earlier": {
+                "count": 0,
+                "denominator": 0,
+                "percent": null
+              },
+              "tie": {
+                "count": 0,
+                "denominator": 0,
+                "percent": null
+              },
+              "second_earlier": {
+                "count": 0,
+                "denominator": 0,
+                "percent": null
+              },
+              "signed_delta_second_minus_first_steps": null,
+              "absolute_delta_steps": null
+            }
+          }
+        }
+      }
+    }
+  },
+  "per_episode": [
+    {
+      "episode": 1,
+      "world_index": 433782,
+      "action_trace_pattern": "all_equal",
+      "final_survivor_pattern": "all_equal",
+      "terminal_by_stage": {
+        "A": {
+          "stop_step": 7,
+          "final_uncertainty_bits": 0.0,
+          "final_survivor_count": 1,
+          "termination_reason": "singleton"
+        },
+        "B": {
+          "stop_step": 7,
+          "final_uncertainty_bits": 0.0,
+          "final_survivor_count": 1,
+          "termination_reason": "singleton"
+        },
+        "C": {
+          "stop_step": 7,
+          "final_uncertainty_bits": 0.0,
+          "final_survivor_count": 1,
+          "termination_reason": "singleton"
+        }
+      },
+      "action_comparisons": {
+        "A_vs_B": {
+          "comparable_steps": 7,
+          "same_action_id": {
+            "count": 7,
+            "denominator": 7,
+            "percent": 100.0
+          },
+          "different_action_id": {
+            "count": 0,
+            "denominator": 7,
+            "percent": 0.0
+          },
+          "shared_prefix": {
+            "count": 7,
+            "denominator": 7,
+            "percent": 100.0
+          },
+          "extra_actions_first": 0,
+          "extra_actions_second": 0
+        },
+        "A_vs_C": {
+          "comparable_steps": 7,
+          "same_action_id": {
+            "count": 7,
+            "denominator": 7,
+            "percent": 100.0
+          },
+          "different_action_id": {
+            "count": 0,
+            "denominator": 7,
+            "percent": 0.0
+          },
+          "shared_prefix": {
+            "count": 7,
+            "denominator": 7,
+            "percent": 100.0
+          },
+          "extra_actions_first": 0,
+          "extra_actions_second": 0
+        },
+        "B_vs_C": {
+          "comparable_steps": 7,
+          "same_action_id": {
+            "count": 7,
+            "denominator": 7,
+            "percent": 100.0
+          },
+          "different_action_id": {
+            "count": 0,
+            "denominator": 7,
+            "percent": 0.0
+          },
+          "shared_prefix": {
+            "count": 7,
+            "denominator": 7,
+            "percent": 100.0
+          },
+          "extra_actions_first": 0,
+          "extra_actions_second": 0
+        }
+      }
+    },
+    {
+      "episode": 2,
+      "world_index": 485802,
+      "action_trace_pattern": "b_c_equal_a_differs",
+      "final_survivor_pattern": "b_c_equal_a_differs",
+      "terminal_by_stage": {
+        "A": {
+          "stop_step": 7,
+          "final_uncertainty_bits": 1.0,
+          "final_survivor_count": 2,
+          "termination_reason": "equivalent"
+        },
+        "B": {
+          "stop_step": 9,
+          "final_uncertainty_bits": 0.0,
+          "final_survivor_count": 1,
+          "termination_reason": "singleton"
+        },
+        "C": {
+          "stop_step": 9,
+          "final_uncertainty_bits": 0.0,
+          "final_survivor_count": 1,
+          "termination_reason": "singleton"
+        }
+      },
+      "action_comparisons": {
+        "A_vs_B": {
+          "comparable_steps": 7,
+          "same_action_id": {
+            "count": 5,
+            "denominator": 7,
+            "percent": 71.42857142857143
+          },
+          "different_action_id": {
+            "count": 2,
+            "denominator": 7,
+            "percent": 28.571428571428573
+          },
+          "shared_prefix": {
+            "count": 4,
+            "denominator": 7,
+            "percent": 57.142857142857146
+          },
+          "extra_actions_first": 0,
+          "extra_actions_second": 2
+        },
+        "A_vs_C": {
+          "comparable_steps": 7,
+          "same_action_id": {
+            "count": 5,
+            "denominator": 7,
+            "percent": 71.42857142857143
+          },
+          "different_action_id": {
+            "count": 2,
+            "denominator": 7,
+            "percent": 28.571428571428573
+          },
+          "shared_prefix": {
+            "count": 4,
+            "denominator": 7,
+            "percent": 57.142857142857146
+          },
+          "extra_actions_first": 0,
+          "extra_actions_second": 2
+        },
+        "B_vs_C": {
+          "comparable_steps": 9,
+          "same_action_id": {
+            "count": 9,
+            "denominator": 9,
+            "percent": 100.0
+          },
+          "different_action_id": {
+            "count": 0,
+            "denominator": 9,
+            "percent": 0.0
+          },
+          "shared_prefix": {
+            "count": 9,
+            "denominator": 9,
+            "percent": 100.0
+          },
+          "extra_actions_first": 0,
+          "extra_actions_second": 0
+        }
+      }
+    },
+    {
+      "episode": 3,
+      "world_index": 587986,
+      "action_trace_pattern": "b_c_equal_a_differs",
+      "final_survivor_pattern": "b_c_equal_a_differs",
+      "terminal_by_stage": {
+        "A": {
+          "stop_step": 6,
+          "final_uncertainty_bits": 2.584962500721156,
+          "final_survivor_count": 6,
+          "termination_reason": "equivalent"
+        },
+        "B": {
+          "stop_step": 8,
+          "final_uncertainty_bits": 0.0,
+          "final_survivor_count": 1,
+          "termination_reason": "singleton"
+        },
+        "C": {
+          "stop_step": 8,
+          "final_uncertainty_bits": 0.0,
+          "final_survivor_count": 1,
+          "termination_reason": "singleton"
+        }
+      },
+      "action_comparisons": {
+        "A_vs_B": {
+          "comparable_steps": 6,
+          "same_action_id": {
+            "count": 5,
+            "denominator": 6,
+            "percent": 83.33333333333333
+          },
+          "different_action_id": {
+            "count": 1,
+            "denominator": 6,
+            "percent": 16.666666666666668
+          },
+          "shared_prefix": {
+            "count": 5,
+            "denominator": 6,
+            "percent": 83.33333333333333
+          },
+          "extra_actions_first": 0,
+          "extra_actions_second": 2
+        },
+        "A_vs_C": {
+          "comparable_steps": 6,
+          "same_action_id": {
+            "count": 5,
+            "denominator": 6,
+            "percent": 83.33333333333333
+          },
+          "different_action_id": {
+            "count": 1,
+            "denominator": 6,
+            "percent": 16.666666666666668
+          },
+          "shared_prefix": {
+            "count": 5,
+            "denominator": 6,
+            "percent": 83.33333333333333
+          },
+          "extra_actions_first": 0,
+          "extra_actions_second": 2
+        },
+        "B_vs_C": {
+          "comparable_steps": 8,
+          "same_action_id": {
+            "count": 8,
+            "denominator": 8,
+            "percent": 100.0
+          },
+          "different_action_id": {
+            "count": 0,
+            "denominator": 8,
+            "percent": 0.0
+          },
+          "shared_prefix": {
+            "count": 8,
+            "denominator": 8,
+            "percent": 100.0
+          },
+          "extra_actions_first": 0,
+          "extra_actions_second": 0
+        }
+      }
+    },
+    {
+      "episode": 4,
+      "world_index": 209247,
+      "action_trace_pattern": "b_c_equal_a_differs",
+      "final_survivor_pattern": "b_c_equal_a_differs",
+      "terminal_by_stage": {
+        "A": {
+          "stop_step": 6,
+          "final_uncertainty_bits": 2.584962500721156,
+          "final_survivor_count": 6,
+          "termination_reason": "equivalent"
+        },
+        "B": {
+          "stop_step": 7,
+          "final_uncertainty_bits": 0.0,
+          "final_survivor_count": 1,
+          "termination_reason": "singleton"
+        },
+        "C": {
+          "stop_step": 7,
+          "final_uncertainty_bits": 0.0,
+          "final_survivor_count": 1,
+          "termination_reason": "singleton"
+        }
+      },
+      "action_comparisons": {
+        "A_vs_B": {
+          "comparable_steps": 6,
+          "same_action_id": {
+            "count": 5,
+            "denominator": 6,
+            "percent": 83.33333333333333
+          },
+          "different_action_id": {
+            "count": 1,
+            "denominator": 6,
+            "percent": 16.666666666666668
+          },
+          "shared_prefix": {
+            "count": 4,
+            "denominator": 6,
+            "percent": 66.66666666666667
+          },
+          "extra_actions_first": 0,
+          "extra_actions_second": 1
+        },
+        "A_vs_C": {
+          "comparable_steps": 6,
+          "same_action_id": {
+            "count": 5,
+            "denominator": 6,
+            "percent": 83.33333333333333
+          },
+          "different_action_id": {
+            "count": 1,
+            "denominator": 6,
+            "percent": 16.666666666666668
+          },
+          "shared_prefix": {
+            "count": 4,
+            "denominator": 6,
+            "percent": 66.66666666666667
+          },
+          "extra_actions_first": 0,
+          "extra_actions_second": 1
+        },
+        "B_vs_C": {
+          "comparable_steps": 7,
+          "same_action_id": {
+            "count": 7,
+            "denominator": 7,
+            "percent": 100.0
+          },
+          "different_action_id": {
+            "count": 0,
+            "denominator": 7,
+            "percent": 0.0
+          },
+          "shared_prefix": {
+            "count": 7,
+            "denominator": 7,
+            "percent": 100.0
+          },
+          "extra_actions_first": 0,
+          "extra_actions_second": 0
+        }
+      }
+    },
+    {
+      "episode": 5,
+      "world_index": 21076,
+      "action_trace_pattern": "b_c_equal_a_differs",
+      "final_survivor_pattern": "all_equal",
+      "terminal_by_stage": {
+        "A": {
+          "stop_step": 6,
+          "final_uncertainty_bits": 0.0,
+          "final_survivor_count": 1,
+          "termination_reason": "singleton"
+        },
+        "B": {
+          "stop_step": 7,
+          "final_uncertainty_bits": 0.0,
+          "final_survivor_count": 1,
+          "termination_reason": "singleton"
+        },
+        "C": {
+          "stop_step": 7,
+          "final_uncertainty_bits": 0.0,
+          "final_survivor_count": 1,
+          "termination_reason": "singleton"
+        }
+      },
+      "action_comparisons": {
+        "A_vs_B": {
+          "comparable_steps": 6,
+          "same_action_id": {
+            "count": 5,
+            "denominator": 6,
+            "percent": 83.33333333333333
+          },
+          "different_action_id": {
+            "count": 1,
+            "denominator": 6,
+            "percent": 16.666666666666668
+          },
+          "shared_prefix": {
+            "count": 5,
+            "denominator": 6,
+            "percent": 83.33333333333333
+          },
+          "extra_actions_first": 0,
+          "extra_actions_second": 1
+        },
+        "A_vs_C": {
+          "comparable_steps": 6,
+          "same_action_id": {
+            "count": 5,
+            "denominator": 6,
+            "percent": 83.33333333333333
+          },
+          "different_action_id": {
+            "count": 1,
+            "denominator": 6,
+            "percent": 16.666666666666668
+          },
+          "shared_prefix": {
+            "count": 5,
+            "denominator": 6,
+            "percent": 83.33333333333333
+          },
+          "extra_actions_first": 0,
+          "extra_actions_second": 1
+        },
+        "B_vs_C": {
+          "comparable_steps": 7,
+          "same_action_id": {
+            "count": 7,
+            "denominator": 7,
+            "percent": 100.0
+          },
+          "different_action_id": {
+            "count": 0,
+            "denominator": 7,
+            "percent": 0.0
+          },
+          "shared_prefix": {
+            "count": 7,
+            "denominator": 7,
+            "percent": 100.0
+          },
+          "extra_actions_first": 0,
+          "extra_actions_second": 0
+        }
+      }
+    },
+    {
+      "episode": 6,
+      "world_index": 67917,
+      "action_trace_pattern": "c_differs_both",
+      "final_survivor_pattern": "b_c_equal_a_differs",
+      "terminal_by_stage": {
+        "A": {
+          "stop_step": 5,
+          "final_uncertainty_bits": 4.807354922057604,
+          "final_survivor_count": 28,
+          "termination_reason": "equivalent"
+        },
+        "B": {
+          "stop_step": 8,
+          "final_uncertainty_bits": 0.0,
+          "final_survivor_count": 1,
+          "termination_reason": "singleton"
+        },
+        "C": {
+          "stop_step": 7,
+          "final_uncertainty_bits": 0.0,
+          "final_survivor_count": 1,
+          "termination_reason": "singleton"
+        }
+      },
+      "action_comparisons": {
+        "A_vs_B": {
+          "comparable_steps": 5,
+          "same_action_id": {
+            "count": 4,
+            "denominator": 5,
+            "percent": 80.0
+          },
+          "different_action_id": {
+            "count": 1,
+            "denominator": 5,
+            "percent": 20.0
+          },
+          "shared_prefix": {
+            "count": 4,
+            "denominator": 5,
+            "percent": 80.0
+          },
+          "extra_actions_first": 0,
+          "extra_actions_second": 3
+        },
+        "A_vs_C": {
+          "comparable_steps": 5,
+          "same_action_id": {
+            "count": 4,
+            "denominator": 5,
+            "percent": 80.0
+          },
+          "different_action_id": {
+            "count": 1,
+            "denominator": 5,
+            "percent": 20.0
+          },
+          "shared_prefix": {
+            "count": 4,
+            "denominator": 5,
+            "percent": 80.0
+          },
+          "extra_actions_first": 0,
+          "extra_actions_second": 2
+        },
+        "B_vs_C": {
+          "comparable_steps": 7,
+          "same_action_id": {
+            "count": 5,
+            "denominator": 7,
+            "percent": 71.42857142857143
+          },
+          "different_action_id": {
+            "count": 2,
+            "denominator": 7,
+            "percent": 28.571428571428573
+          },
+          "shared_prefix": {
+            "count": 5,
+            "denominator": 7,
+            "percent": 71.42857142857143
+          },
+          "extra_actions_first": 1,
+          "extra_actions_second": 0
+        }
+      }
+    },
+    {
+      "episode": 7,
+      "world_index": 175188,
+      "action_trace_pattern": "b_c_equal_a_differs",
+      "final_survivor_pattern": "b_c_equal_a_differs",
+      "terminal_by_stage": {
+        "A": {
+          "stop_step": 6,
+          "final_uncertainty_bits": 1.584962500721156,
+          "final_survivor_count": 3,
+          "termination_reason": "equivalent"
+        },
+        "B": {
+          "stop_step": 8,
+          "final_uncertainty_bits": 0.0,
+          "final_survivor_count": 1,
+          "termination_reason": "singleton"
+        },
+        "C": {
+          "stop_step": 8,
+          "final_uncertainty_bits": 0.0,
+          "final_survivor_count": 1,
+          "termination_reason": "singleton"
+        }
+      },
+      "action_comparisons": {
+        "A_vs_B": {
+          "comparable_steps": 6,
+          "same_action_id": {
+            "count": 6,
+            "denominator": 6,
+            "percent": 100.0
+          },
+          "different_action_id": {
+            "count": 0,
+            "denominator": 6,
+            "percent": 0.0
+          },
+          "shared_prefix": {
+            "count": 6,
+            "denominator": 6,
+            "percent": 100.0
+          },
+          "extra_actions_first": 0,
+          "extra_actions_second": 2
+        },
+        "A_vs_C": {
+          "comparable_steps": 6,
+          "same_action_id": {
+            "count": 6,
+            "denominator": 6,
+            "percent": 100.0
+          },
+          "different_action_id": {
+            "count": 0,
+            "denominator": 6,
+            "percent": 0.0
+          },
+          "shared_prefix": {
+            "count": 6,
+            "denominator": 6,
+            "percent": 100.0
+          },
+          "extra_actions_first": 0,
+          "extra_actions_second": 2
+        },
+        "B_vs_C": {
+          "comparable_steps": 8,
+          "same_action_id": {
+            "count": 8,
+            "denominator": 8,
+            "percent": 100.0
+          },
+          "different_action_id": {
+            "count": 0,
+            "denominator": 8,
+            "percent": 0.0
+          },
+          "shared_prefix": {
+            "count": 8,
+            "denominator": 8,
+            "percent": 100.0
+          },
+          "extra_actions_first": 0,
+          "extra_actions_second": 0
+        }
+      }
+    },
+    {
+      "episode": 8,
+      "world_index": 696796,
+      "action_trace_pattern": "all_equal",
+      "final_survivor_pattern": "all_equal",
+      "terminal_by_stage": {
+        "A": {
+          "stop_step": 6,
+          "final_uncertainty_bits": 0.0,
+          "final_survivor_count": 1,
+          "termination_reason": "singleton"
+        },
+        "B": {
+          "stop_step": 6,
+          "final_uncertainty_bits": 0.0,
+          "final_survivor_count": 1,
+          "termination_reason": "singleton"
+        },
+        "C": {
+          "stop_step": 6,
+          "final_uncertainty_bits": 0.0,
+          "final_survivor_count": 1,
+          "termination_reason": "singleton"
+        }
+      },
+      "action_comparisons": {
+        "A_vs_B": {
+          "comparable_steps": 6,
+          "same_action_id": {
+            "count": 6,
+            "denominator": 6,
+            "percent": 100.0
+          },
+          "different_action_id": {
+            "count": 0,
+            "denominator": 6,
+            "percent": 0.0
+          },
+          "shared_prefix": {
+            "count": 6,
+            "denominator": 6,
+            "percent": 100.0
+          },
+          "extra_actions_first": 0,
+          "extra_actions_second": 0
+        },
+        "A_vs_C": {
+          "comparable_steps": 6,
+          "same_action_id": {
+            "count": 6,
+            "denominator": 6,
+            "percent": 100.0
+          },
+          "different_action_id": {
+            "count": 0,
+            "denominator": 6,
+            "percent": 0.0
+          },
+          "shared_prefix": {
+            "count": 6,
+            "denominator": 6,
+            "percent": 100.0
+          },
+          "extra_actions_first": 0,
+          "extra_actions_second": 0
+        },
+        "B_vs_C": {
+          "comparable_steps": 6,
+          "same_action_id": {
+            "count": 6,
+            "denominator": 6,
+            "percent": 100.0
+          },
+          "different_action_id": {
+            "count": 0,
+            "denominator": 6,
+            "percent": 0.0
+          },
+          "shared_prefix": {
+            "count": 6,
+            "denominator": 6,
+            "percent": 100.0
+          },
+          "extra_actions_first": 0,
+          "extra_actions_second": 0
+        }
+      }
+    },
+    {
+      "episode": 9,
+      "world_index": 147043,
+      "action_trace_pattern": "b_c_equal_a_differs",
+      "final_survivor_pattern": "b_c_equal_a_differs",
+      "terminal_by_stage": {
+        "A": {
+          "stop_step": 5,
+          "final_uncertainty_bits": 2.584962500721156,
+          "final_survivor_count": 6,
+          "termination_reason": "equivalent"
+        },
+        "B": {
+          "stop_step": 6,
+          "final_uncertainty_bits": 0.0,
+          "final_survivor_count": 1,
+          "termination_reason": "singleton"
+        },
+        "C": {
+          "stop_step": 6,
+          "final_uncertainty_bits": 0.0,
+          "final_survivor_count": 1,
+          "termination_reason": "singleton"
+        }
+      },
+      "action_comparisons": {
+        "A_vs_B": {
+          "comparable_steps": 5,
+          "same_action_id": {
+            "count": 4,
+            "denominator": 5,
+            "percent": 80.0
+          },
+          "different_action_id": {
+            "count": 1,
+            "denominator": 5,
+            "percent": 20.0
+          },
+          "shared_prefix": {
+            "count": 4,
+            "denominator": 5,
+            "percent": 80.0
+          },
+          "extra_actions_first": 0,
+          "extra_actions_second": 1
+        },
+        "A_vs_C": {
+          "comparable_steps": 5,
+          "same_action_id": {
+            "count": 4,
+            "denominator": 5,
+            "percent": 80.0
+          },
+          "different_action_id": {
+            "count": 1,
+            "denominator": 5,
+            "percent": 20.0
+          },
+          "shared_prefix": {
+            "count": 4,
+            "denominator": 5,
+            "percent": 80.0
+          },
+          "extra_actions_first": 0,
+          "extra_actions_second": 1
+        },
+        "B_vs_C": {
+          "comparable_steps": 6,
+          "same_action_id": {
+            "count": 6,
+            "denominator": 6,
+            "percent": 100.0
+          },
+          "different_action_id": {
+            "count": 0,
+            "denominator": 6,
+            "percent": 0.0
+          },
+          "shared_prefix": {
+            "count": 6,
+            "denominator": 6,
+            "percent": 100.0
+          },
+          "extra_actions_first": 0,
+          "extra_actions_second": 0
+        }
+      }
+    },
+    {
+      "episode": 10,
+      "world_index": 154831,
+      "action_trace_pattern": "b_c_equal_a_differs",
+      "final_survivor_pattern": "b_c_equal_a_differs",
+      "terminal_by_stage": {
+        "A": {
+          "stop_step": 5,
+          "final_uncertainty_bits": 1.584962500721156,
+          "final_survivor_count": 3,
+          "termination_reason": "equivalent"
+        },
+        "B": {
+          "stop_step": 7,
+          "final_uncertainty_bits": 0.0,
+          "final_survivor_count": 1,
+          "termination_reason": "singleton"
+        },
+        "C": {
+          "stop_step": 7,
+          "final_uncertainty_bits": 0.0,
+          "final_survivor_count": 1,
+          "termination_reason": "singleton"
+        }
+      },
+      "action_comparisons": {
+        "A_vs_B": {
+          "comparable_steps": 5,
+          "same_action_id": {
+            "count": 4,
+            "denominator": 5,
+            "percent": 80.0
+          },
+          "different_action_id": {
+            "count": 1,
+            "denominator": 5,
+            "percent": 20.0
+          },
+          "shared_prefix": {
+            "count": 4,
+            "denominator": 5,
+            "percent": 80.0
+          },
+          "extra_actions_first": 0,
+          "extra_actions_second": 2
+        },
+        "A_vs_C": {
+          "comparable_steps": 5,
+          "same_action_id": {
+            "count": 4,
+            "denominator": 5,
+            "percent": 80.0
+          },
+          "different_action_id": {
+            "count": 1,
+            "denominator": 5,
+            "percent": 20.0
+          },
+          "shared_prefix": {
+            "count": 4,
+            "denominator": 5,
+            "percent": 80.0
+          },
+          "extra_actions_first": 0,
+          "extra_actions_second": 2
+        },
+        "B_vs_C": {
+          "comparable_steps": 7,
+          "same_action_id": {
+            "count": 7,
+            "denominator": 7,
+            "percent": 100.0
+          },
+          "different_action_id": {
+            "count": 0,
+            "denominator": 7,
+            "percent": 0.0
+          },
+          "shared_prefix": {
+            "count": 7,
+            "denominator": 7,
+            "percent": 100.0
+          },
+          "extra_actions_first": 0,
+          "extra_actions_second": 0
+        }
+      }
+    }
+  ]
+}
