@@ -1,0 +1,87 @@
+{
+  "source_schema": "track1-exp02-partition-v1",
+  "raw_sha256": "5650eb3974ad3e57e8a96349b5d5115603a1f91391025cfd1386183796985eaf",
+  "status": "complete",
+  "definitions": {
+    "equivalent": "class size > 1 under all available actions in that stage",
+    "equivalent_world_count": "sum of class sizes over classes with size > 1",
+    "avg_class_amount_world_weighted_equivalent_only": "sum(size^2 for size > 1) / sum(size for size > 1); null if no equivalent worlds",
+    "avg_class_amount_world_weighted_all_worlds": "sum(size^2 for every class) / world_count; singleton amount = 1"
+  },
+  "stages": {
+    "A": {
+      "world_count": 705600,
+      "class_count": 394684,
+      "singleton_class_count": 280728,
+      "equivalent_class_count": 113956,
+      "equivalent_world_count": 424872,
+      "equivalent_world_fraction": 0.6021428571428571,
+      "avg_class_amount_world_weighted_equivalent_only": 10.020881583159163,
+      "avg_class_amount_world_weighted_all_worlds": 6.431859410430839,
+      "max_class_amount": 273,
+      "class_count_by_amount": {
+        "1": 280728,
+        "2": 51408,
+        "3": 25824,
+        "4": 18192,
+        "5": 4380,
+        "6": 6596,
+        "7": 360,
+        "8": 1376,
+        "9": 888,
+        "10": 1088,
+        "12": 1848,
+        "15": 288,
+        "16": 156,
+        "18": 72,
+        "20": 144,
+        "21": 596,
+        "24": 60,
+        "25": 24,
+        "27": 72,
+        "28": 48,
+        "30": 48,
+        "32": 12,
+        "36": 216,
+        "42": 24,
+        "48": 12,
+        "50": 24,
+        "54": 48,
+        "55": 24,
+        "60": 24,
+        "63": 84,
+        "78": 8,
+        "273": 12
+      }
+    },
+    "B": {
+      "world_count": 705600,
+      "class_count": 705416,
+      "singleton_class_count": 705232,
+      "equivalent_class_count": 184,
+      "equivalent_world_count": 368,
+      "equivalent_world_fraction": 0.0005215419501133786,
+      "avg_class_amount_world_weighted_equivalent_only": 2.0,
+      "avg_class_amount_world_weighted_all_worlds": 1.0005215419501134,
+      "max_class_amount": 2,
+      "class_count_by_amount": {
+        "1": 705232,
+        "2": 184
+      }
+    },
+    "C": {
+      "world_count": 705600,
+      "class_count": 705600,
+      "singleton_class_count": 705600,
+      "equivalent_class_count": 0,
+      "equivalent_world_count": 0,
+      "equivalent_world_fraction": 0.0,
+      "avg_class_amount_world_weighted_equivalent_only": null,
+      "avg_class_amount_world_weighted_all_worlds": 1.0,
+      "max_class_amount": 1,
+      "class_count_by_amount": {
+        "1": 705600
+      }
+    }
+  }
+}

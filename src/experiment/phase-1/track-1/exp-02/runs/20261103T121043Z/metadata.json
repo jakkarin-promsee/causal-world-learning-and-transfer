@@ -1,0 +1,32 @@
+{
+  "schema": "track1-exp02-partition-v1",
+  "status": "smoke_partial_stages",
+  "created_utc": "2026-11-03T12:10:44+00:00",
+  "dataset": "C:\\Users\\BTCOM\\Desktop\\beyond-backprop-learning\\src\\dataset\\worldgen-4-4-npy",
+  "worlds_sha256": "d723b8f477d419fda9385040454f040f3b18e6afc905130016f7e5cbd4be3f53",
+  "world_count": 705600,
+  "spec": {
+    "d": 4,
+    "m": 4
+  },
+  "action_order": "ActionCatalog.action_id ascending; stable stage prefixes",
+  "class_id_rule": "sorted (previous class ID, observation code) after each action",
+  "stages": {
+    "A": {
+      "action_count": 16,
+      "class_count": 394684,
+      "elapsed_seconds": 1.558
+    }
+  },
+  "raw_file": "partitions.npz",
+  "raw_sha256": "1d7357f530acf515bedb62b4e03ab71a2f65cd85509da5e4c597b5f8dd8ff4b5",
+  "elapsed_seconds": 1.771,
+  "python": "3.11.0",
+  "numpy": "2.3.5",
+  "source_sha256": {
+    "experiment\\phase-1\\track-1\\exp-02\\run.py": "09b02ba572040fd281e0265fe574269648d5ad88d02d018c500544e5fa048e71",
+    "core\\oracle.py": "cdcf59b2ffb453ac51a2e2b4ea2db989a0714e499b63c639be5ad2cf368cdfe3",
+    "core\\evaluator.py": "f5fb1e8b80bde217e16f7b944e7d5fc58c0d46769d862eeb1156d26d25e06dfa",
+    "reuse\\numeric_engine\\responses.py": "8e20742a1b4c38cd0b849913cc73fbecbaeb02c5f775bfa482621b5243cfb695"
+  }
+}
