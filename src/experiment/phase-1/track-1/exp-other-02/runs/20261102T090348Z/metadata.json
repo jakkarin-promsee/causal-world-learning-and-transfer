@@ -1,0 +1,28 @@
+{
+  "started_utc": "2026-11-02T09:03:48+00:00",
+  "git_revision": "a21caaa27a6b3765ee744734a97f83fb76cc7b38",
+  "python": "3.11.0",
+  "numpy": "2.3.5",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "compute_device": "CPU",
+  "spec": {
+    "d": 4,
+    "m": 4
+  },
+  "world_count": 705600,
+  "policy": "full-candidate greedy",
+  "candidate_limit": null,
+  "seed": 0,
+  "episode_unit": "hidden world",
+  "warm_repeats": 20,
+  "chunk_size": 100000,
+  "jsonl_dataset": "C:\\Users\\BTCOM\\Desktop\\beyond-backprop-learning\\src\\dataset\\worldgen-4-4",
+  "numeric_dataset": "C:\\Users\\BTCOM\\Desktop\\beyond-backprop-learning\\src\\dataset\\worldgen-4-4-npy",
+  "numeric_worlds_sha256": "d723b8f477d419fda9385040454f040f3b18e6afc905130016f7e5cbd4be3f53",
+  "source_sha256": {
+    "experiment\\phase-1\\track-1\\exp-other-02\\benchmark_numeric_engine.py": "1f7ed588b1a9de798a52570c5c8ac4a14aae03705d88b7b0e2c416a5e2f943ab",
+    "core\\oracle.py": "cdcf59b2ffb453ac51a2e2b4ea2db989a0714e499b63c639be5ad2cf368cdfe3",
+    "reuse\\numeric_engine\\responses.py": "8e20742a1b4c38cd0b849913cc73fbecbaeb02c5f775bfa482621b5243cfb695",
+    "reuse\\numeric_engine\\policies.py": "d29e9b49e9dde58a705b2548cce79b8aacdf4831230da2dbb98d8e4a0127b9d5"
+  }
+}

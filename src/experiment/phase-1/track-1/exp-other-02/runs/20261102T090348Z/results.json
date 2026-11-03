@@ -1,0 +1,190 @@
+{
+  "startup_seconds": {
+    "jsonl_manifest": 0.0002103000006172806,
+    "numeric_verified_load": 0.013433400017675012
+  },
+  "action_counts_by_forced_y": {
+    "A": {
+      "0": 16
+    },
+    "B": {
+      "0": 16,
+      "1": 128
+    },
+    "C": {
+      "0": 16,
+      "1": 128,
+      "2": 384,
+      "3": 512,
+      "4": 256
+    }
+  },
+  "actions": [
+    {
+      "forced_y": 0,
+      "action_id": 0,
+      "stage": "A",
+      "jsonl_cold_seconds": 15.00261270001647,
+      "numeric_cold_seconds": 0.05953530000988394,
+      "speedup_cold": 251.99524815572886,
+      "jsonl_memory_hit_median_seconds": 1.1500087566673756e-06,
+      "numeric_memory_hit_median_seconds": 1.1499942047521472e-06,
+      "numeric_disk_reload_seconds": 0.0016274000226985663,
+      "numeric_policy_score_seconds_per_candidate": 0.0031834499968681484,
+      "column_bytes": 705600,
+      "column_sha256": "2203dcfce60cf4d82fa7d4c8e448d92d8077778bdddabf224ab8c238134cbde9",
+      "responses_match": true
+    },
+    {
+      "forced_y": 1,
+      "action_id": 17,
+      "stage": "B",
+      "jsonl_cold_seconds": 15.589927299995907,
+      "numeric_cold_seconds": 0.038999599986709654,
+      "speedup_cold": 399.7458257343323,
+      "jsonl_memory_hit_median_seconds": 5.00003807246685e-07,
+      "numeric_memory_hit_median_seconds": 5.00003807246685e-07,
+      "numeric_disk_reload_seconds": 0.0011500999971758574,
+      "numeric_policy_score_seconds_per_candidate": 0.0029767500091111287,
+      "column_bytes": 705600,
+      "column_sha256": "eb02a1e882e694dc4b77979b8b9127638ee4d9ecb7ec2fc44a80aabfb81d0ae6",
+      "responses_match": true
+    },
+    {
+      "forced_y": 2,
+      "action_id": 207,
+      "stage": "C",
+      "jsonl_cold_seconds": 13.441502199973911,
+      "numeric_cold_seconds": 0.04606050002621487,
+      "speedup_cold": 291.8227590304885,
+      "jsonl_memory_hit_median_seconds": 5.999754648655653e-07,
+      "numeric_memory_hit_median_seconds": 5.499896360561252e-07,
+      "numeric_disk_reload_seconds": 0.001174500008346513,
+      "numeric_policy_score_seconds_per_candidate": 0.0027965000044787303,
+      "column_bytes": 705600,
+      "column_sha256": "12e3d5148718cdcdce7afcd3c19a36f3f2c00c31dd8e8e324d9cd280bf1762e3",
+      "responses_match": true
+    },
+    {
+      "forced_y": 3,
+      "action_id": 213,
+      "stage": "C",
+      "jsonl_cold_seconds": 12.050771899987012,
+      "numeric_cold_seconds": 0.02335600001970306,
+      "speedup_cold": 515.9604337138642,
+      "jsonl_memory_hit_median_seconds": 5.00003807246685e-07,
+      "numeric_memory_hit_median_seconds": 5.00003807246685e-07,
+      "numeric_disk_reload_seconds": 0.0011366000107955188,
+      "numeric_policy_score_seconds_per_candidate": 0.002718999996432103,
+      "column_bytes": 705600,
+      "column_sha256": "e69821ac39cfb6f5f4a9d0f765c7fe0884ef05c206a295205891fe498f91d34d",
+      "responses_match": true
+    },
+    {
+      "forced_y": 4,
+      "action_id": 215,
+      "stage": "C",
+      "jsonl_cold_seconds": 11.005845600011526,
+      "numeric_cold_seconds": 0.013023700012126938,
+      "speedup_cold": 845.0628922474797,
+      "jsonl_memory_hit_median_seconds": 5.00003807246685e-07,
+      "numeric_memory_hit_median_seconds": 5.00003807246685e-07,
+      "numeric_disk_reload_seconds": 0.0011344000231474638,
+      "numeric_policy_score_seconds_per_candidate": 0.0032921499951044098,
+      "column_bytes": 705600,
+      "column_sha256": "c7a813d798aa0935e6f0080f10c53fc2eb18145a2eeb6aa756cf9bbaa2075dd7",
+      "responses_match": true
+    }
+  ],
+  "estimates": {
+    "A": {
+      "action_count": 16,
+      "jsonl_cold_columns_seconds": 240.04180320026353,
+      "numeric_cold_columns_seconds": 0.952564800158143,
+      "numeric_disk_reload_seconds": 0.02603840036317706,
+      "numeric_one_initial_greedy_score_seconds": 0.050935199949890375
+    },
+    "B": {
+      "action_count": 144,
+      "jsonl_cold_columns_seconds": 2235.5524975997396,
+      "numeric_cold_columns_seconds": 5.944513598456979,
+      "numeric_disk_reload_seconds": 0.1732512000016868,
+      "numeric_one_initial_greedy_score_seconds": 0.43195920111611485
+    },
+    "C": {
+      "action_count": 1296,
+      "jsonl_cold_columns_seconds": 16384.581028786022,
+      "numeric_cold_columns_seconds": 38.92408482171595,
+      "numeric_disk_reload_seconds": 1.496604814659804,
+      "numeric_one_initial_greedy_score_seconds": 3.740733599755913
+    }
+  },
+  "stage_episodes_actual": [
+    {
+      "stage": "A",
+      "budget": 16,
+      "episodes": [
+        {
+          "world_index": 0,
+          "seconds": 0.9310583999904338,
+          "executed_steps": 4,
+          "termination_reason": "equivalent",
+          "final_survivors": 273,
+          "cached_columns_after": 16
+        },
+        {
+          "world_index": 1,
+          "seconds": 0.10370529998908751,
+          "executed_steps": 4,
+          "termination_reason": "equivalent",
+          "final_survivors": 21,
+          "cached_columns_after": 16
+        }
+      ]
+    },
+    {
+      "stage": "B",
+      "budget": 144,
+      "episodes": [
+        {
+          "world_index": 0,
+          "seconds": 7.702080399991246,
+          "executed_steps": 12,
+          "termination_reason": "singleton",
+          "final_survivors": 1,
+          "cached_columns_after": 144
+        },
+        {
+          "world_index": 1,
+          "seconds": 1.152145300002303,
+          "executed_steps": 9,
+          "termination_reason": "singleton",
+          "final_survivors": 1,
+          "cached_columns_after": 144
+        }
+      ]
+    },
+    {
+      "stage": "C",
+      "budget": 1296,
+      "episodes": [
+        {
+          "world_index": 0,
+          "seconds": 46.01282639999408,
+          "executed_steps": 11,
+          "termination_reason": "singleton",
+          "final_survivors": 1,
+          "cached_columns_after": 1296
+        },
+        {
+          "world_index": 1,
+          "seconds": 9.785000700008823,
+          "executed_steps": 8,
+          "termination_reason": "singleton",
+          "final_survivors": 1,
+          "cached_columns_after": 1296
+        }
+      ]
+    }
+  ]
+}
