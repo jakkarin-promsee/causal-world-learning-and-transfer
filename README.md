@@ -38,3 +38,7 @@ The toy smoke run is one Stage-A action, but its first response column still eva
 - [`src/experiment/phase-1/track-0/`](src/experiment/phase-1/track-0/README.md) — local computation benchmark and run logs.
 - [`src/experiment/phase-1/`](src/experiment/phase-1/README.md) — Phase-1 track plans and future study artifacts.
 - [`src/dataset/worldgen-4-4/`](src/dataset/worldgen-4-4/manifest.json) — reference Boolean-world dataset.
+
+## License
+
+Original code and documentation authored by Jakkarin Promsee are licensed under the [MIT License](LICENSE). Third-party code, assets, datasets, and other materials are not covered by this license; their original terms apply.
