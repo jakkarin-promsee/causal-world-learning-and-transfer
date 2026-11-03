@@ -1,0 +1,43 @@
+{
+  "schema": "track1-exp01-raw-v1",
+  "run_name": "exp-01-long",
+  "status": "running",
+  "started_utc": "2026-11-03T06:22:44+00:00",
+  "finished_utc": null,
+  "elapsed_seconds": 4539.5154595003405,
+  "completed_worlds": 451,
+  "selected_world_count": 705600,
+  "selected_world_indices_file": "selected_world_indices.npy",
+  "selected_world_indices_sha256": "1e7e47c4e9c5028b1b5c2ac81f5b63955089973a8a5d6bca3ddccb8d7f33e092",
+  "sampling_method": "numpy.random.Generator.permutation; without replacement",
+  "sampling_seed": 7639449354578325648,
+  "dataset": "C:\\Users\\BTCOM\\Desktop\\beyond-backprop-learning\\src\\dataset\\worldgen-4-4-npy",
+  "worlds_sha256": "d723b8f477d419fda9385040454f040f3b18e6afc905130016f7e5cbd4be3f53",
+  "world_count": 705600,
+  "spec": {
+    "d": 4,
+    "m": 4
+  },
+  "policy": "full-candidate greedy information gain",
+  "candidate_limit": null,
+  "budgets": {
+    "A": 16,
+    "B": 144,
+    "C": 1296
+  },
+  "episode_unit": "hidden world; paired Stage A/B/C",
+  "python": "3.11.0",
+  "numpy": "2.3.5",
+  "compute_device": "CPU",
+  "response_cache": "C:\\Users\\BTCOM\\Desktop\\beyond-backprop-learning\\src\\dataset\\response-cache-exp01",
+  "git_revision": "9eb05a399f24600724fc1185c4f7e220e7256394",
+  "source_sha256": {
+    "experiment\\phase-1\\track-1\\exp01_base.py": "53c71c44ee89a83679c4e8b9c1962a594bb1b641461c2013c45818b0c7a1c8a9",
+    "core\\oracle.py": "cdcf59b2ffb453ac51a2e2b4ea2db989a0714e499b63c639be5ad2cf368cdfe3",
+    "core\\evaluator.py": "f5fb1e8b80bde217e16f7b944e7d5fc58c0d46769d862eeb1156d26d25e06dfa",
+    "reuse\\numeric_engine\\runner.py": "06243063f92fbba71e4def754fbb22301591091590396c539ad8a37b78b64d8d",
+    "reuse\\numeric_engine\\policies.py": "d29e9b49e9dde58a705b2548cce79b8aacdf4831230da2dbb98d8e4a0127b9d5",
+    "reuse\\numeric_engine\\responses.py": "8e20742a1b4c38cd0b849913cc73fbecbaeb02c5f775bfa482621b5243cfb695"
+  },
+  "planned_time_cap_seconds": 21600.0
+}
